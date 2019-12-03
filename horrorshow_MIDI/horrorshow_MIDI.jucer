@@ -29,23 +29,23 @@
                        vst3BinaryLocation="G:\OneDrive\resources\audio\VST3\JUCE"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
-        <MODULEPATH id="juce_audio_basics" path="C:/Users/phili/opt/JUCE/modules"/>
-        <MODULEPATH id="juce_audio_devices" path="C:/Users/phili/opt/JUCE/modules"/>
-        <MODULEPATH id="juce_audio_formats" path="C:/Users/phili/opt/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="..\..\JUCE\modules"/>
+        <MODULEPATH id="juce_audio_devices" path="..\..\JUCE\modules"/>
+        <MODULEPATH id="juce_audio_formats" path="..\..\JUCE\modules"/>
         <MODULEPATH id="juce_audio_plugin_client" path="C:/Users/phili/opt/JUCE/modules"/>
-        <MODULEPATH id="juce_audio_processors" path="C:/Users/phili/opt/JUCE/modules"/>
-        <MODULEPATH id="juce_audio_utils" path="C:/Users/phili/opt/JUCE/modules"/>
-        <MODULEPATH id="juce_core" path="C:/Users/phili/opt/JUCE/modules"/>
-        <MODULEPATH id="juce_cryptography" path="C:/Users/phili/opt/JUCE/modules"/>
-        <MODULEPATH id="juce_data_structures" path="C:/Users/phili/opt/JUCE/modules"/>
-        <MODULEPATH id="juce_events" path="C:/Users/phili/opt/JUCE/modules"/>
-        <MODULEPATH id="juce_graphics" path="C:/Users/phili/opt/JUCE/modules"/>
-        <MODULEPATH id="juce_gui_basics" path="C:/Users/phili/opt/JUCE/modules"/>
-        <MODULEPATH id="juce_gui_extra" path="C:/Users/phili/opt/JUCE/modules"/>
-        <MODULEPATH id="juce_opengl" path="C:/Users/phili/opt/JUCE/modules"/>
-        <MODULEPATH id="tracktion_engine" path="D:\D_Workspace\git\tracktion_engine\modules"/>
-        <MODULEPATH id="juce_dsp" path="C:\Users\phili\opt\JUCE\modules"/>
-        <MODULEPATH id="juce_osc" path="C:\Users\phili\opt\JUCE\modules"/>
+        <MODULEPATH id="juce_audio_processors" path="..\..\JUCE\modules"/>
+        <MODULEPATH id="juce_audio_utils" path="..\..\JUCE\modules"/>
+        <MODULEPATH id="juce_core" path="..\..\JUCE\modules"/>
+        <MODULEPATH id="juce_cryptography" path="..\..\JUCE\modules"/>
+        <MODULEPATH id="juce_data_structures" path="..\..\JUCE\modules"/>
+        <MODULEPATH id="juce_events" path="..\..\JUCE\modules"/>
+        <MODULEPATH id="juce_graphics" path="..\..\JUCE\modules"/>
+        <MODULEPATH id="juce_gui_basics" path="..\..\JUCE\modules"/>
+        <MODULEPATH id="juce_gui_extra" path="..\..\JUCE\modules"/>
+        <MODULEPATH id="juce_opengl" path="..\..\JUCE\modules"/>
+        <MODULEPATH id="tracktion_engine" path="..\..\tracktion_engine\modules"/>
+        <MODULEPATH id="juce_dsp" path="..\..\JUCE\modules"/>
+        <MODULEPATH id="juce_osc" path="..\..\JUCE\modules"/>
       </MODULEPATHS>
     </VS2019>
   </EXPORTFORMATS>
