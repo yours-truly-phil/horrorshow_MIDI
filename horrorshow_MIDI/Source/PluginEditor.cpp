@@ -19,10 +19,7 @@ Horrorshow_midiAudioProcessorEditor::Horrorshow_midiAudioProcessorEditor (Horror
     // editor's size to whatever you need it to be.
 	setSize(600, 400);
 
-	logo.setColour(Colours::limegreen);
-	logo.setText(JucePlugin_Name);
-
-	addAndMakeVisible(logo);
+	addAndMakeVisible(pluginTitleLabel);
 	addAndMakeVisible(midiNotesDownInfoTable);
 	addAndMakeVisible(midiEventsLists);
 
@@ -44,10 +41,10 @@ void Horrorshow_midiAudioProcessorEditor::resized()
 {
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
-	int logoHeight = 60;
-	int eventListWidth = 100;
-	logo.setBounds(0, 0, getWidth(), logoHeight);
-	logo.setFontHeight(logoHeight);
-	midiEventsLists.setBounds(0, logoHeight, eventListWidth, getHeight());
-	midiNotesDownInfoTable.setBounds(eventListWidth, logoHeight, getWidth() - eventListWidth, getHeight());
+	auto titleHeight = 60;
+	auto eventListWidth = 100;
+	pluginTitleLabel.setBounds(0, 0, getWidth(), titleHeight);
+	pluginTitleLabel.setJustificationType(Justification::topRight);
+	midiEventsLists.setBounds(0, titleHeight, eventListWidth, getHeight());
+	midiNotesDownInfoTable.setBounds(eventListWidth, titleHeight, getWidth() - eventListWidth, getHeight());
 }

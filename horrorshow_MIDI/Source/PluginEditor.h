@@ -33,7 +33,7 @@ private:
 
 	TableListBox midiNotesDownInfoTable;
 	ListBox midiEventsLists;
-	DrawableText logo;
+	Label pluginTitleLabel { "Plugin Title Label", JucePlugin_Name };
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Horrorshow_midiAudioProcessorEditor)
 };

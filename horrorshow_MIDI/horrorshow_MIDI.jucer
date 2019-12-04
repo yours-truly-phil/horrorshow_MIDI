@@ -4,7 +4,7 @@
               version="0.0.1" companyName="horrorshow.io" companyCopyright="Philipp Seeger"
               companyWebsite="horrorshow.io" companyEmail="real@horrorshow.io"
               pluginFormats="buildStandalone,buildVST3" pluginCharacteristicsValue="pluginIsMidiEffectPlugin,pluginProducesMidiOut,pluginWantsMidiIn"
-              pluginDesc="Creates for a midi chord input the corresponding negative harmony midi output"
+              pluginDesc="finds root, scale and chord and offers realtime substitutions - hopefully aesthetically pleasing"
               pluginName="horrorshow_MIDI" pluginManufacturer="horrorshow.io"
               pluginManufacturerCode="C137" pluginCode="HMid" headerPath="C:\SDKs\asiosdk_2.3.3_2019-06-14\common;&#10;"
               pluginVSTCategory="kPlugCategEffect" pluginRTASCategory="32,4,64"
@@ -44,9 +44,6 @@
         <MODULEPATH id="juce_gui_basics" path="..\..\JUCE\modules"/>
         <MODULEPATH id="juce_gui_extra" path="..\..\JUCE\modules"/>
         <MODULEPATH id="juce_opengl" path="..\..\JUCE\modules"/>
-        <MODULEPATH id="tracktion_engine" path="..\..\tracktion_engine\modules"/>
-        <MODULEPATH id="juce_dsp" path="..\..\JUCE\modules"/>
-        <MODULEPATH id="juce_osc" path="..\..\JUCE\modules"/>
       </MODULEPATHS>
     </VS2019>
     <LINUX_MAKE targetFolder="Builds/LinuxMakefile">
@@ -55,14 +52,11 @@
         <CONFIGURATION isDebug="0" name="Release"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
-        <MODULEPATH id="tracktion_engine" path="../../tracktion_engine/modules"/>
-        <MODULEPATH id="juce_osc"/>
         <MODULEPATH id="juce_opengl"/>
         <MODULEPATH id="juce_gui_extra"/>
         <MODULEPATH id="juce_gui_basics"/>
         <MODULEPATH id="juce_graphics"/>
         <MODULEPATH id="juce_events"/>
-        <MODULEPATH id="juce_dsp"/>
         <MODULEPATH id="juce_data_structures"/>
         <MODULEPATH id="juce_cryptography"/>
         <MODULEPATH id="juce_core"/>
@@ -80,14 +74,11 @@
         <CONFIGURATION isDebug="0" name="Release"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
-        <MODULEPATH id="tracktion_engine" path="..\..\tracktion_engine\modules"/>
-        <MODULEPATH id="juce_osc"/>
         <MODULEPATH id="juce_opengl"/>
         <MODULEPATH id="juce_gui_extra"/>
         <MODULEPATH id="juce_gui_basics"/>
         <MODULEPATH id="juce_graphics"/>
         <MODULEPATH id="juce_events"/>
-        <MODULEPATH id="juce_dsp"/>
         <MODULEPATH id="juce_data_structures"/>
         <MODULEPATH id="juce_cryptography"/>
         <MODULEPATH id="juce_core"/>
@@ -105,14 +96,11 @@
         <CONFIGURATION isDebug="0" name="Release"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
-        <MODULEPATH id="tracktion_engine" path="../../tracktion_engine/modules"/>
-        <MODULEPATH id="juce_osc"/>
         <MODULEPATH id="juce_opengl"/>
         <MODULEPATH id="juce_gui_extra"/>
         <MODULEPATH id="juce_gui_basics"/>
         <MODULEPATH id="juce_graphics"/>
         <MODULEPATH id="juce_events"/>
-        <MODULEPATH id="juce_dsp"/>
         <MODULEPATH id="juce_data_structures"/>
         <MODULEPATH id="juce_cryptography"/>
         <MODULEPATH id="juce_core"/>
@@ -127,14 +115,11 @@
     <CLION targetFolder="Builds/CLion" clionMakefileEnabled="0" clionCodeBlocksEnabled="1"
            clionXcodeEnabled="0">
       <MODULEPATHS>
-        <MODULEPATH id="tracktion_engine"/>
-        <MODULEPATH id="juce_osc"/>
         <MODULEPATH id="juce_opengl"/>
         <MODULEPATH id="juce_gui_extra"/>
         <MODULEPATH id="juce_gui_basics"/>
         <MODULEPATH id="juce_graphics"/>
         <MODULEPATH id="juce_events"/>
-        <MODULEPATH id="juce_dsp"/>
         <MODULEPATH id="juce_data_structures"/>
         <MODULEPATH id="juce_cryptography"/>
         <MODULEPATH id="juce_core"/>
@@ -158,14 +143,11 @@
     <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_cryptography" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
-    <MODULE id="juce_dsp" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_opengl" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
-    <MODULE id="juce_osc" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
-    <MODULE id="tracktion_engine" showAllCode="1" useLocalCopy="1" useGlobalPath="0"/>
   </MODULES>
   <LIVE_SETTINGS>
     <WINDOWS buildEnabled="0" windowsTargetPlatformVersion="10.0.18362.0"
