@@ -12,18 +12,18 @@
 #include "PluginEditor.h"
 
 //==============================================================================
-Horrorshow_midiAudioProcessorEditor::Horrorshow_midiAudioProcessorEditor (Horrorshow_midiAudioProcessor& p)
-    : AudioProcessorEditor (&p), processor (p)
+Horrorshow_midiAudioProcessorEditor::Horrorshow_midiAudioProcessorEditor(Horrorshow_midiAudioProcessor& p)
+    : AudioProcessorEditor(&p), processor(p)
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
-	setSize(600, 400);
+    setSize(600, 400);
 
-	addAndMakeVisible(pluginTitleLabel);
-	addAndMakeVisible(midiNotesDownInfoTable);
-	addAndMakeVisible(midiEventsLists);
+    addAndMakeVisible(plugin_ui_header_);
+    addAndMakeVisible(midi_active_now_);
+    addAndMakeVisible(midi_events_);
 
-	setResizable(true, true);
+    setResizable(true, true);
 }
 
 Horrorshow_midiAudioProcessorEditor::~Horrorshow_midiAudioProcessorEditor()
@@ -31,20 +31,20 @@ Horrorshow_midiAudioProcessorEditor::~Horrorshow_midiAudioProcessorEditor()
 }
 
 //==============================================================================
-void Horrorshow_midiAudioProcessorEditor::paint (Graphics& g)
+void Horrorshow_midiAudioProcessorEditor::paint(Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
-    g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
+    g.fillAll(getLookAndFeel().findColour(ResizableWindow::backgroundColourId));
 }
 
 void Horrorshow_midiAudioProcessorEditor::resized()
 {
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
-	auto titleHeight = 60;
-	auto eventListWidth = 100;
-	pluginTitleLabel.setBounds(0, 0, getWidth(), titleHeight);
-	pluginTitleLabel.setJustificationType(Justification::topRight);
-	midiEventsLists.setBounds(0, titleHeight, eventListWidth, getHeight());
-	midiNotesDownInfoTable.setBounds(eventListWidth, titleHeight, getWidth() - eventListWidth, getHeight());
+    auto title_height = 60;
+    auto event_list_width = 100;
+    plugin_ui_header_.setBounds(0, 0, getWidth(), title_height);
+    plugin_ui_header_.setJustificationType(Justification::topRight);
+    midi_events_.setBounds(0, title_height, event_list_width, getHeight());
+    midi_active_now_.setBounds(event_list_width, title_height, getWidth() - event_list_width, getHeight());
 }

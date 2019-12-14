@@ -15,12 +15,12 @@
 Horrorshow_midiAudioProcessor::Horrorshow_midiAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
      : AudioProcessor (BusesProperties()
-                     #if ! JucePlugin_IsMidiEffect
-                      #if ! JucePlugin_IsSynth
+#if ! JucePlugin_IsMidiEffect
+#if ! JucePlugin_IsSynth
                        .withInput  ("Input",  AudioChannelSet::stereo(), true)
-                      #endif
+#endif
                        .withOutput ("Output", AudioChannelSet::stereo(), true)
-                     #endif
+#endif
                        )
 #endif
 {
@@ -38,29 +38,29 @@ const String Horrorshow_midiAudioProcessor::getName() const
 
 bool Horrorshow_midiAudioProcessor::acceptsMidi() const
 {
-   #if JucePlugin_WantsMidiInput
+#if JucePlugin_WantsMidiInput
     return true;
-   #else
+#else
     return false;
-   #endif
+#endif
 }
 
 bool Horrorshow_midiAudioProcessor::producesMidi() const
 {
-   #if JucePlugin_ProducesMidiOutput
+#if JucePlugin_ProducesMidiOutput
     return true;
-   #else
+#else
     return false;
-   #endif
+#endif
 }
 
 bool Horrorshow_midiAudioProcessor::isMidiEffect() const
 {
-   #if JucePlugin_IsMidiEffect
+#if JucePlugin_IsMidiEffect
     return true;
-   #else
+#else
     return false;
-   #endif
+#endif
 }
 
 double Horrorshow_midiAudioProcessor::getTailLengthSeconds() const
@@ -70,8 +70,8 @@ double Horrorshow_midiAudioProcessor::getTailLengthSeconds() const
 
 int Horrorshow_midiAudioProcessor::getNumPrograms()
 {
-    return 1;   // NB: some hosts don't cope very well if you tell them there are 0 programs,
-                // so this should be at least 1, even if you're not really implementing programs.
+    return 1; // NB: some hosts don't cope very well if you tell them there are 0 programs,
+    // so this should be at least 1, even if you're not really implementing programs.
 }
 
 int Horrorshow_midiAudioProcessor::getCurrentProgram()
@@ -79,24 +79,24 @@ int Horrorshow_midiAudioProcessor::getCurrentProgram()
     return 0;
 }
 
-void Horrorshow_midiAudioProcessor::setCurrentProgram (int index)
+void Horrorshow_midiAudioProcessor::setCurrentProgram(int index)
 {
 }
 
-const String Horrorshow_midiAudioProcessor::getProgramName (int index)
+const String Horrorshow_midiAudioProcessor::getProgramName(int index)
 {
     return {};
 }
 
-void Horrorshow_midiAudioProcessor::changeProgramName (int index, const String& newName)
+void Horrorshow_midiAudioProcessor::changeProgramName(int index, const String& newName)
 {
 }
 
 //==============================================================================
-void Horrorshow_midiAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
+void Horrorshow_midiAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
     // Use this method as the place to do any pre-playback
-    // initialisation that you need..
+    // initialization that you need..
 }
 
 void Horrorshow_midiAudioProcessor::releaseResources()
@@ -108,41 +108,38 @@ void Horrorshow_midiAudioProcessor::releaseResources()
 #ifndef JucePlugin_PreferredChannelConfigurations
 bool Horrorshow_midiAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
 {
-  #if JucePlugin_IsMidiEffect
+#if JucePlugin_IsMidiEffect
     ignoreUnused (layouts);
     return true;
-  #else
-    // This is the place where you check if the layout is supported.
+#else
+// This is the place where you check if the layout is supported.
     // In this template code we only support mono or stereo.
     if (layouts.getMainOutputChannelSet() != AudioChannelSet::mono()
      && layouts.getMainOutputChannelSet() != AudioChannelSet::stereo())
         return false;
 
     // This checks if the input layout matches the output layout
-   #if ! JucePlugin_IsSynth
+#if ! JucePlugin_IsSynth
     if (layouts.getMainOutputChannelSet() != layouts.getMainInputChannelSet())
         return false;
-   #endif
+#endif
 
     return true;
-  #endif
+#endif
 }
 #endif
 
-void Horrorshow_midiAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
+void Horrorshow_midiAudioProcessor::processBlock(AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
 {
-    ScopedNoDenormals noDenormals;
-    auto totalNumInputChannels  = getTotalNumInputChannels();
-    auto totalNumOutputChannels = getTotalNumOutputChannels();
+    buffer.clear();
+    midiMessages.clear();
 
-    // In case we have more outputs than inputs, this code clears any output
-    // channels that didn't contain input data, (because these aren't
-    // guaranteed to be empty - they may contain garbage).
-    // This is here to avoid people getting screaming feedback
-    // when they first compile a plugin, but obviously you don't need to keep
-    // this code if your algorithm always overwrites all the output channels.
-    for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
-        buffer.clear (i, 0, buffer.getNumSamples());
+
+    /** no need for this autogenerated code
+     *
+    ScopedNoDenormals noDenormals;
+    auto totalNumInputChannels = getTotalNumInputChannels();
+    auto totalNumOutputChannels = getTotalNumOutputChannels();
 
     // This is the place where you'd normally do the guts of your plugin's
     // audio processing...
@@ -152,10 +149,19 @@ void Horrorshow_midiAudioProcessor::processBlock (AudioBuffer<float>& buffer, Mi
     // interleaved by keeping the same state.
     for (int channel = 0; channel < totalNumInputChannels; ++channel)
     {
-        auto* channelData = buffer.getWritePointer (channel);
+        auto* channelData = buffer.getWritePointer(channel);
 
         // ..do something to the data...
     }
+    // In case we have more outputs than inputs, this code clears any output
+    // channels that didn't contain input data, (because these aren't
+    // guaranteed to be empty - they may contain garbage).
+    // This is here to avoid people getting screaming feedback
+    // when they first compile a plugin, but obviously you don't need to keep
+    // this code if your algorithm always overwrites all the output channels.
+    for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
+        buffer.clear(i, 0, buffer.getNumSamples());
+        */
 }
 
 //==============================================================================
@@ -166,18 +172,18 @@ bool Horrorshow_midiAudioProcessor::hasEditor() const
 
 AudioProcessorEditor* Horrorshow_midiAudioProcessor::createEditor()
 {
-    return new Horrorshow_midiAudioProcessorEditor (*this);
+    return new Horrorshow_midiAudioProcessorEditor(*this);
 }
 
 //==============================================================================
-void Horrorshow_midiAudioProcessor::getStateInformation (MemoryBlock& destData)
+void Horrorshow_midiAudioProcessor::getStateInformation(MemoryBlock& destData)
 {
     // You should use this method to store your parameters in the memory block.
     // You could do that either as raw data, or use the XML or ValueTree classes
     // as intermediaries to make it easy to save and load complex data.
 }
 
-void Horrorshow_midiAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
+void Horrorshow_midiAudioProcessor::setStateInformation(const void* data, int sizeInBytes)
 {
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.

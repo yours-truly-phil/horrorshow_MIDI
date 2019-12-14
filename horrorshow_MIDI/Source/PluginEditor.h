@@ -16,14 +16,14 @@
 //==============================================================================
 /**
 */
-class Horrorshow_midiAudioProcessorEditor  : public AudioProcessorEditor
+class Horrorshow_midiAudioProcessorEditor : public AudioProcessorEditor
 {
 public:
-    Horrorshow_midiAudioProcessorEditor (Horrorshow_midiAudioProcessor&);
+    Horrorshow_midiAudioProcessorEditor(Horrorshow_midiAudioProcessor&);
     ~Horrorshow_midiAudioProcessorEditor();
 
     //==============================================================================
-    void paint (Graphics&) override;
+    void paint(Graphics&) override;
     void resized() override;
 
 private:
@@ -31,9 +31,9 @@ private:
     // access the processor object that created it.
     Horrorshow_midiAudioProcessor& processor;
 
-	TableListBox midiNotesDownInfoTable;
-	ListBox midiEventsLists;
-	Label pluginTitleLabel { "Plugin Title Label", JucePlugin_Name };
+    TableListBox midi_active_now_;
+    ListBox midi_events_;
+    Label plugin_ui_header_{"label_plugin_header", JucePlugin_Name};
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Horrorshow_midiAudioProcessorEditor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Horrorshow_midiAudioProcessorEditor)
 };
