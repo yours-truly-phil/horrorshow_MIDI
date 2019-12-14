@@ -12,6 +12,7 @@
               projectLineFeed="&#10;" pluginAAXCategory="32,4,64" pluginAUMainType="'aumi'">
   <MAINGROUP id="GNaMjk" name="horrorshow_MIDI">
     <GROUP id="{772F881A-326D-64CD-7E44-12049FCDE93E}" name="Source">
+      <FILE id="LXbtV0" name="MidiProcessor.h" compile="0" resource="0" file="Source/MidiProcessor.h"/>
       <FILE id="vpdtoT" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
       <FILE id="nXHtPj" name="PluginProcessor.h" compile="0" resource="0"

@@ -33,7 +33,7 @@ private:
 
     TableListBox midi_active_now_;
     ListBox midi_events_;
-    Label plugin_ui_header_{"label_plugin_header", JucePlugin_Name};
+    Label plugin_ui_header_{"label_plugin_header", processor.getName()};
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Horrorshow_midiAudioProcessorEditor)
 };

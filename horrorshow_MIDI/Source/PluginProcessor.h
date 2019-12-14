@@ -11,6 +11,7 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "MidiProcessor.h"
 
 //==============================================================================
 /**
@@ -58,10 +59,7 @@ public:
 private:
     //==============================================================================
     // Midicontrolling
-    AudioDeviceManager deviceManager;
-    int midi_lastInputIndex{0};
-    bool midiSourceIsMidiInput{false};
-    MidiKeyboardState keyboardState;
+    MidiProcessor midi_processor_;
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Horrorshow_midiAudioProcessor)
