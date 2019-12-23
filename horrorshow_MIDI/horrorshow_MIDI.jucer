@@ -3,13 +3,14 @@
 <JUCERPROJECT id="RGpPEP" name="horrorshow_MIDI" projectType="audioplug" jucerVersion="5.4.5"
               version="0.0.1" companyName="horrorshow.io" companyCopyright="Philipp Seeger"
               companyWebsite="horrorshow.io" companyEmail="real@horrorshow.io"
-              pluginFormats="buildStandalone,buildVST3" pluginCharacteristicsValue="pluginIsMidiEffectPlugin,pluginProducesMidiOut,pluginWantsMidiIn"
-              pluginDesc="finds root, scale and chord and offers realtime substitutions - hopefully aesthetically pleasing"
+              pluginFormats="buildStandalone,buildVST3" pluginCharacteristicsValue="pluginIsMidiEffectPlugin,pluginIsSynth,pluginProducesMidiOut,pluginWantsMidiIn"
+              pluginDesc="When playing a MIDI-capable Instrument for example to Songs on the Radio, or Improvising, or playing to a beat this offers interactive non disturbing ways to get context sensitive information and the ability to control clearly pro and reactively."
               pluginName="horrorshow_MIDI" pluginManufacturer="horrorshow.io"
               pluginManufacturerCode="C137" pluginCode="HMid" headerPath="C:\SDKs\asiosdk_2.3.3_2019-06-14\common;&#10;"
               pluginVSTCategory="kPlugCategEffect" pluginRTASCategory="32,4,64"
-              pluginVST3Category="Modulation,Pitch Shift" pluginChannelConfigs="{1, 1}, {2, 2}"
-              projectLineFeed="&#10;" pluginAAXCategory="32,4,64" pluginAUMainType="'aumi'">
+              pluginVST3Category="Fx,Modulation,Pitch Shift" pluginChannelConfigs="{1, 1}, {2, 2}"
+              projectLineFeed="&#10;" pluginAAXCategory="32,4,64" pluginAUMainType="'aumi'"
+              cppLanguageStandard="17">
   <MAINGROUP id="GNaMjk" name="horrorshow_MIDI">
     <GROUP id="{772F881A-326D-64CD-7E44-12049FCDE93E}" name="Source">
       <FILE id="LXbtV0" name="MidiProcessor.h" compile="0" resource="0" file="Source/MidiProcessor.h"/>
@@ -23,12 +24,13 @@
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>
-    <VS2019 targetFolder="Builds/VisualStudio2019" windowsTargetPlatformVersion="10.0.18362.0">
+    <VS2019 targetFolder="Builds/VisualStudio2019" windowsTargetPlatformVersion="10.0.18362.0"
+            IPPLibrary="Parallel_Dynamic">
       <CONFIGURATIONS>
         <CONFIGURATION isDebug="1" name="Debug" enablePluginBinaryCopyStep="1" vst3BinaryLocation="G:\OneDrive\resources\audio\VST3\JUCE"
                        targetName="horrorshow_MIDI"/>
-        <CONFIGURATION isDebug="0" name="Release" targetName="horrorshow_MIDI" enablePluginBinaryCopyStep="1"
-                       vst3BinaryLocation="G:\OneDrive\resources\audio\VST3\JUCE"/>
+        <CONFIGURATION isDebug="0" name="Release" targetName="horrorshow_MIDI" vst3BinaryLocation="G:\OneDrive\resources\audio\VST3\JUCE"
+                       enablePluginBinaryCopyStep="1"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_audio_basics" path="..\..\JUCE\modules"/>
@@ -50,7 +52,8 @@
     <LINUX_MAKE targetFolder="Builds/LinuxMakefile">
       <CONFIGURATIONS>
         <CONFIGURATION isDebug="1" name="Debug"/>
-        <CONFIGURATION isDebug="0" name="Release"/>
+        <CONFIGURATION isDebug="0" name="Release" linkTimeOptimisation="1" optimisation="3"
+                       linuxArchitecture="-m64"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_opengl" path="~/JUCE/modules"/>
@@ -72,8 +75,8 @@
     <CODEBLOCKS_WINDOWS targetFolder="Builds/CodeBlocksWindows" extraCompilerFlags="-Wa,-mbig-obj"
                         codeBlocksWindowsTarget="0x0A00">
       <CONFIGURATIONS>
-        <CONFIGURATION isDebug="1" name="Debug"/>
-        <CONFIGURATION isDebug="0" name="Release"/>
+        <CONFIGURATION isDebug="1" name="Debug" recommendedWarnings="LLVM"/>
+        <CONFIGURATION isDebug="0" name="Release" linkTimeOptimisation="1" recommendedWarnings="LLVM"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_opengl" path="..\..\JUCE\modules"/>
@@ -131,8 +134,9 @@
   </MODULES>
   <LIVE_SETTINGS>
     <WINDOWS buildEnabled="0" systemHeaderPath="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include;&#10;C:\SDKs\asiosdk_2.3.3_2019-06-14\common;&#10;"
-             warningsEnabled="0" windowsTargetPlatformVersion="10.0.18362.0"/>
+             warningsEnabled="1" windowsTargetPlatformVersion="10.0.18362.0"/>
   </LIVE_SETTINGS>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_ASIO="1" JUCE_WASAPI="1"
-               JUCE_WASAPI_EXCLUSIVE="1" JUCE_DIRECTSOUND="1" JUCE_VST3_CAN_REPLACE_VST2="0"/>
+               JUCE_WASAPI_EXCLUSIVE="1" JUCE_DIRECTSOUND="1" JUCE_VST3_CAN_REPLACE_VST2="0"
+               JUCE_DISABLE_COREGRAPHICS_FONT_SMOOTHING="1" JUCE_JACK="1"/>
 </JUCERPROJECT>
