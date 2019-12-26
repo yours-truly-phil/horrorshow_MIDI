@@ -11,7 +11,6 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "MidiProcessor.h"
 
 //==============================================================================
 /**
@@ -57,10 +56,6 @@ public:
     void setStateInformation(const void* data, int sizeInBytes) override;
 
 private:
-    //==============================================================================
-    // Midicontrolling
-    MidiProcessor midi_processor_;
-
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Horrorshow_midiAudioProcessor)
 };

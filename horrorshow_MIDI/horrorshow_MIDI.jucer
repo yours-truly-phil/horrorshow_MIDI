@@ -13,7 +13,6 @@
               cppLanguageStandard="17">
   <MAINGROUP id="GNaMjk" name="horrorshow_MIDI">
     <GROUP id="{772F881A-326D-64CD-7E44-12049FCDE93E}" name="Source">
-      <FILE id="LXbtV0" name="MidiProcessor.h" compile="0" resource="0" file="Source/MidiProcessor.h"/>
       <FILE id="vpdtoT" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
       <FILE id="nXHtPj" name="PluginProcessor.h" compile="0" resource="0"
@@ -25,7 +24,7 @@
   </MAINGROUP>
   <EXPORTFORMATS>
     <VS2019 targetFolder="Builds/VisualStudio2019" windowsTargetPlatformVersion="10.0.18362.0"
-            IPPLibrary="Parallel_Dynamic">
+            IPPLibrary="true">
       <CONFIGURATIONS>
         <CONFIGURATION isDebug="1" name="Debug" enablePluginBinaryCopyStep="1" vst3BinaryLocation="G:\OneDrive\resources\audio\VST3\JUCE"
                        targetName="horrorshow_MIDI"/>
@@ -35,7 +34,6 @@
       <MODULEPATHS>
         <MODULEPATH id="juce_audio_basics" path="..\..\JUCE\modules"/>
         <MODULEPATH id="juce_audio_devices" path="..\..\JUCE\modules"/>
-        <MODULEPATH id="juce_audio_formats" path="..\..\JUCE\modules"/>
         <MODULEPATH id="juce_audio_plugin_client" path="..\..\JUCE\modules"/>
         <MODULEPATH id="juce_audio_processors" path="..\..\JUCE\modules"/>
         <MODULEPATH id="juce_audio_utils" path="..\..\JUCE\modules"/>
@@ -47,6 +45,7 @@
         <MODULEPATH id="juce_gui_basics" path="..\..\JUCE\modules"/>
         <MODULEPATH id="juce_gui_extra" path="..\..\JUCE\modules"/>
         <MODULEPATH id="juce_opengl" path="..\..\JUCE\modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../JUCE/modules"/>
       </MODULEPATHS>
     </VS2019>
     <LINUX_MAKE targetFolder="Builds/LinuxMakefile">
@@ -67,9 +66,9 @@
         <MODULEPATH id="juce_audio_utils" path="~/JUCE/modules"/>
         <MODULEPATH id="juce_audio_processors" path="~/JUCE/modules"/>
         <MODULEPATH id="juce_audio_plugin_client" path="~/JUCE/modules"/>
-        <MODULEPATH id="juce_audio_formats" path="~/JUCE/modules"/>
         <MODULEPATH id="juce_audio_devices" path="~/JUCE/modules"/>
         <MODULEPATH id="juce_audio_basics"/>
+        <MODULEPATH id="juce_audio_formats" path="../../JUCE/modules"/>
       </MODULEPATHS>
     </LINUX_MAKE>
     <CODEBLOCKS_WINDOWS targetFolder="Builds/CodeBlocksWindows" extraCompilerFlags="-Wa,-mbig-obj"
@@ -90,9 +89,9 @@
         <MODULEPATH id="juce_audio_utils" path="..\..\JUCE\modules"/>
         <MODULEPATH id="juce_audio_processors" path="..\..\JUCE\modules"/>
         <MODULEPATH id="juce_audio_plugin_client" path="..\..\JUCE\modules"/>
-        <MODULEPATH id="juce_audio_formats" path="..\..\JUCE\modules"/>
         <MODULEPATH id="juce_audio_devices" path="..\..\JUCE\modules"/>
         <MODULEPATH id="juce_audio_basics" path="..\..\JUCE\modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../JUCE/modules"/>
       </MODULEPATHS>
     </CODEBLOCKS_WINDOWS>
     <CLION targetFolder="Builds/CLion" clionMakefileEnabled="1" clionCodeBlocksEnabled="1"
@@ -109,9 +108,9 @@
         <MODULEPATH id="juce_audio_utils" path="..\..\JUCE\modules"/>
         <MODULEPATH id="juce_audio_processors" path="..\..\JUCE\modules"/>
         <MODULEPATH id="juce_audio_plugin_client" path="..\..\JUCE\modules"/>
-        <MODULEPATH id="juce_audio_formats" path="..\..\JUCE\modules"/>
         <MODULEPATH id="juce_audio_devices" path="..\..\JUCE\modules"/>
         <MODULEPATH id="juce_audio_basics" path="..\..\JUCE\modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../JUCE/modules"/>
       </MODULEPATHS>
     </CLION>
   </EXPORTFORMATS>
@@ -138,5 +137,5 @@
   </LIVE_SETTINGS>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_ASIO="1" JUCE_WASAPI="1"
                JUCE_WASAPI_EXCLUSIVE="1" JUCE_DIRECTSOUND="1" JUCE_VST3_CAN_REPLACE_VST2="0"
-               JUCE_DISABLE_COREGRAPHICS_FONT_SMOOTHING="1" JUCE_JACK="1"/>
+               JUCE_JACK="1"/>
 </JUCERPROJECT>
