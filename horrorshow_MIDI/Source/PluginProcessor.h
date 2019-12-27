@@ -11,16 +11,17 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "MidiProcessor.h"
 
 //==============================================================================
 /**
 */
-class Horrorshow_midiAudioProcessor : public AudioProcessor
+class ToNegativeHarmonyProcessor : public AudioProcessor
 {
 public:
     //==============================================================================
-    Horrorshow_midiAudioProcessor();
-    ~Horrorshow_midiAudioProcessor();
+    ToNegativeHarmonyProcessor();
+    ~ToNegativeHarmonyProcessor();
 
     //==============================================================================
     void prepareToPlay(double sampleRate, int samplesPerBlock) override;
@@ -55,7 +56,14 @@ public:
     void getStateInformation(MemoryBlock& destData) override;
     void setStateInformation(const void* data, int sizeInBytes) override;
 
+    bool is_midi_convertion_on = true;
+
 private:
+    //std::unique_ptr<ValueWithDefault> is_neg_harm_processing_active_;
+    //ValueWithDefault is_neg_harm_processing_active {audio_processor_value_tree_state_, new Identifier("is_neg_harm_processing_active"), nullptr}
+
+    MidiProcessor midi_processor_;
+
     //==============================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Horrorshow_midiAudioProcessor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ToNegativeHarmonyProcessor)
 };

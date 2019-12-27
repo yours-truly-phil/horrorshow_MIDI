@@ -12,7 +12,7 @@
 #include "PluginEditor.h"
 
 //==============================================================================
-Horrorshow_midiAudioProcessor::Horrorshow_midiAudioProcessor()
+ToNegativeHarmonyProcessor::ToNegativeHarmonyProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
      : AudioProcessor (BusesProperties()
 #if ! JucePlugin_IsMidiEffect
@@ -26,16 +26,17 @@ Horrorshow_midiAudioProcessor::Horrorshow_midiAudioProcessor()
 {
 }
  
-Horrorshow_midiAudioProcessor::~Horrorshow_midiAudioProcessor()
-= default;
+ToNegativeHarmonyProcessor::~ToNegativeHarmonyProcessor()
+{
+}
 
 //==============================================================================
-const String Horrorshow_midiAudioProcessor::getName() const
+const String ToNegativeHarmonyProcessor::getName() const
 {
     return JucePlugin_Name;
 }
 
-bool Horrorshow_midiAudioProcessor::acceptsMidi() const
+bool ToNegativeHarmonyProcessor::acceptsMidi() const
 {
 #if JucePlugin_WantsMidiInput
     return true;
@@ -44,7 +45,7 @@ bool Horrorshow_midiAudioProcessor::acceptsMidi() const
 #endif
 }
 
-bool Horrorshow_midiAudioProcessor::producesMidi() const
+bool ToNegativeHarmonyProcessor::producesMidi() const
 {
 #if JucePlugin_ProducesMidiOutput
     return true;
@@ -53,7 +54,7 @@ bool Horrorshow_midiAudioProcessor::producesMidi() const
 #endif
 }
 
-bool Horrorshow_midiAudioProcessor::isMidiEffect() const
+bool ToNegativeHarmonyProcessor::isMidiEffect() const
 {
 #if JucePlugin_IsMidiEffect
     return true;
@@ -62,50 +63,50 @@ bool Horrorshow_midiAudioProcessor::isMidiEffect() const
 #endif
 }
 
-double Horrorshow_midiAudioProcessor::getTailLengthSeconds() const
+double ToNegativeHarmonyProcessor::getTailLengthSeconds() const
 {
     return 0.0;
 }
 
-int Horrorshow_midiAudioProcessor::getNumPrograms()
+int ToNegativeHarmonyProcessor::getNumPrograms()
 {
     return 1; // NB: some hosts don't cope very well if you tell them there are 0 programs,
     // so this should be at least 1, even if you're not really implementing programs.
 }
 
-int Horrorshow_midiAudioProcessor::getCurrentProgram()
+int ToNegativeHarmonyProcessor::getCurrentProgram()
 {
     return 0;
 }
 
-void Horrorshow_midiAudioProcessor::setCurrentProgram(int index)
+void ToNegativeHarmonyProcessor::setCurrentProgram(int index)
 {
 }
 
-const String Horrorshow_midiAudioProcessor::getProgramName(int index)
+const String ToNegativeHarmonyProcessor::getProgramName(int index)
 {
     return {};
 }
 
-void Horrorshow_midiAudioProcessor::changeProgramName(int index, const String& newName)
+void ToNegativeHarmonyProcessor::changeProgramName(int index, const String& newName)
 {
 }
 
 //==============================================================================
-void Horrorshow_midiAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
+void ToNegativeHarmonyProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
     // Use this method as the place to do any pre-playback
     // initialization that you need..
 }
 
-void Horrorshow_midiAudioProcessor::releaseResources()
+void ToNegativeHarmonyProcessor::releaseResources()
 {
     // When playback stops, you can use this as an opportunity to free up any
     // spare memory, etc.
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
-bool Horrorshow_midiAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
+bool ToNegativeHarmonyProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
 {
 #if JucePlugin_IsMidiEffect
     ignoreUnused (layouts);
@@ -128,7 +129,7 @@ bool Horrorshow_midiAudioProcessor::isBusesLayoutSupported (const BusesLayout& l
 }
 #endif
 
-void Horrorshow_midiAudioProcessor::processBlock(AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
+void ToNegativeHarmonyProcessor::processBlock(AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
 {
     ScopedNoDenormals noDenormals;
     auto totalNumInputChannels = getTotalNumInputChannels();
@@ -155,36 +156,39 @@ void Horrorshow_midiAudioProcessor::processBlock(AudioBuffer<float>& buffer, Mid
 
         // ..do something to the data...
     }
+
+    midi_processor_.process(midiMessages);
 }
 
 //==============================================================================
-bool Horrorshow_midiAudioProcessor::hasEditor() const
+bool ToNegativeHarmonyProcessor::hasEditor() const
 {
     return true; // (change this to false if you choose to not supply an editor)
 }
 
-AudioProcessorEditor* Horrorshow_midiAudioProcessor::createEditor()
+AudioProcessorEditor* ToNegativeHarmonyProcessor::createEditor()
 {
-    return new Horrorshow_midiAudioProcessorEditor(*this);
+    return new ToNegativeHarmonyEditor(*this);
 }
 
 //==============================================================================
-void Horrorshow_midiAudioProcessor::getStateInformation(MemoryBlock& destData)
+void ToNegativeHarmonyProcessor::getStateInformation(MemoryBlock& destData)
 {
     // You should use this method to store your parameters in the memory block.
     // You could do that either as raw data, or use the XML or ValueTree classes
     // as intermediaries to make it easy to save and load complex data.
 }
 
-void Horrorshow_midiAudioProcessor::setStateInformation(const void* data, int sizeInBytes)
+void ToNegativeHarmonyProcessor::setStateInformation(const void* data, int sizeInBytes)
 {
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
 }
 
+
 //==============================================================================
 // This creates new instances of the plugin..
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
-    return new Horrorshow_midiAudioProcessor();
+    return new ToNegativeHarmonyProcessor();
 }

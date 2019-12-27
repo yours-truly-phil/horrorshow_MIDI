@@ -12,33 +12,62 @@
 #include "PluginEditor.h"
 
 //==============================================================================
-Horrorshow_midiAudioProcessorEditor::Horrorshow_midiAudioProcessorEditor(Horrorshow_midiAudioProcessor& p)
-    : AudioProcessorEditor(&p), processor(p)
+ToNegativeHarmonyEditor::ToNegativeHarmonyEditor(ToNegativeHarmonyProcessor& p)
+    : AudioProcessorEditor(&p), processor(p),
+      midi_keyboard_component_(midi_keyboard_state_, MidiKeyboardComponent::horizontalKeyboard)
 {
+    midi_keyboard_state_.addListener(this);
+    toggle_neg_harm_button_.addListener(this);
+    toggle_neg_harm_button_.setClickingTogglesState(true);
+    toggle_neg_harm_button_.setToggleState(processor.is_midi_convertion_on,sendNotification);
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
-    toggle_neg_harm_button_.setButtonText("midi to negative Harmony");
     setSize(600, 200);
 
     addAndMakeVisible(midi_keyboard_component_);
-    addAndMakeVisible(toggle_neg_harm_button_);
     addAndMakeVisible(plugin_ui_header_);
-    //addAndMakeVisible(midi_active_now_);
-    //addAndMakeVisible(midi_events_);
+    addAndMakeVisible(toggle_neg_harm_button_);
+
 }
 
-Horrorshow_midiAudioProcessorEditor::~Horrorshow_midiAudioProcessorEditor()
+ToNegativeHarmonyEditor::~ToNegativeHarmonyEditor()
 {
 }
 
 //==============================================================================
-void Horrorshow_midiAudioProcessorEditor::paint(Graphics& g)
+void ToNegativeHarmonyEditor::buttonClicked(Button* button)
+{
+    switch(button->getState())
+    {
+    case Button::buttonNormal:
+        processor.is_midi_convertion_on = false;
+        break;
+    case Button::buttonOver: break;
+    case Button::buttonDown:
+        processor.is_midi_convertion_on = true;
+        break;
+    default: ;
+    }
+}
+
+void ToNegativeHarmonyEditor::handleNoteOn(MidiKeyboardState* source, int midiChannel, int midiNoteNumber, float velocity)
+{
+    
+}
+
+void ToNegativeHarmonyEditor::handleNoteOff(MidiKeyboardState* source, int midiChannel, int midiNoteNumber, float velocity)
+{
+
+}
+
+
+void ToNegativeHarmonyEditor::paint(Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
     g.fillAll(getLookAndFeel().findColour(ResizableWindow::backgroundColourId));
 }
 
-void Horrorshow_midiAudioProcessorEditor::resized()
+void ToNegativeHarmonyEditor::resized()
 {
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
@@ -49,7 +78,4 @@ void Horrorshow_midiAudioProcessorEditor::resized()
     //auto event_list_width = 100;
     plugin_ui_header_.setBounds(0, 0, getWidth(), 100);
     plugin_ui_header_.setJustificationType(Justification::topRight);
-
-    //midi_events_.setBounds(0, title_height, event_list_width, getHeight()-title_height);
-    //midi_active_now_.setBounds(event_list_width, title_height, getWidth() - event_list_width, getHeight()-title_height);
 }
