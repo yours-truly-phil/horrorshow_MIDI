@@ -6,7 +6,7 @@
               companyEmail="real@horrorshow.io" pluginFormats="buildStandalone,buildVST3"
               pluginCharacteristicsValue="pluginIsMidiEffectPlugin,pluginProducesMidiOut,pluginWantsMidiIn"
               pluginDesc="The Input MIDI Notes get converted into their negative Harmnony Counterparts"
-              pluginName="horrorshow_MIDI" pluginManufacturer="horrorshow.io"
+              pluginName="ToNegativeHarmony" pluginManufacturer="horrorshow.io"
               pluginManufacturerCode="C137" pluginCode="HSNH" headerPath="C:\SDKs\asiosdk_2.3.3_2019-06-14\common;&#10;"
               pluginVSTCategory="kPlugCategEffect" pluginRTASCategory="32,64,8192"
               pluginVST3Category="Analyzer,Fx,Modulation" pluginChannelConfigs="{0,0},{1, 1}, {2, 2}"
