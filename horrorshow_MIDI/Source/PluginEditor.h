@@ -19,7 +19,7 @@
 class ToNegativeHarmonyEditor : public AudioProcessorEditor, private Button::Listener, private MidiKeyboardStateListener
 {
 public:
-    ToNegativeHarmonyEditor(ToNegativeHarmonyProcessor&);
+    ToNegativeHarmonyEditor(ToNegativeHarmonyProcessor&,ToNegativeHarmonyController&);
     ~ToNegativeHarmonyEditor();
 
     //==============================================================================
@@ -35,9 +35,10 @@ private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
     ToNegativeHarmonyProcessor& processor;
+    ToNegativeHarmonyController& controller_;
 
     MidiKeyboardState midi_keyboard_state_;
-    MidiKeyboardComponent midi_keyboard_component_;
+    MidiKeyboardComponent midi_keyboard_component_{midi_keyboard_state_, MidiKeyboardComponent::horizontalKeyboard};
     ToggleButton toggle_neg_harm_button_ {"to negative Harmony"};
 
     //TableListBox midi_active_now_;

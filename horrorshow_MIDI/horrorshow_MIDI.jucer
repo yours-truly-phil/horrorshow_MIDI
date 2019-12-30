@@ -14,10 +14,10 @@
               cppLanguageStandard="17">
   <MAINGROUP id="GNaMjk" name="ToNegativeHarmony">
     <GROUP id="{772F881A-326D-64CD-7E44-12049FCDE93E}" name="Source">
-      <FILE id="YEiyOi" name="PluginValueTree.cpp" compile="1" resource="0"
-            file="Source/PluginValueTree.cpp"/>
-      <FILE id="Rnsy93" name="PluginValueTree.h" compile="0" resource="0"
-            file="Source/PluginValueTree.h"/>
+      <FILE id="SrxOUm" name="ToNegativeHarmonyValueTree.cpp" compile="1"
+            resource="0" file="Source/ToNegativeHarmonyValueTree.cpp"/>
+      <FILE id="giTmJa" name="ToNegativeHarmonyValueTree.h" compile="0" resource="0"
+            file="Source/ToNegativeHarmonyValueTree.h"/>
       <FILE id="KpMX36" name="MidiProcessor.h" compile="0" resource="0" file="Source/MidiProcessor.h"/>
       <FILE id="vpdtoT" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>

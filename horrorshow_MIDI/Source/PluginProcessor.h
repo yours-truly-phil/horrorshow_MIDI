@@ -12,6 +12,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "MidiProcessor.h"
+#include "ToNegativeHarmonyController.h"
 
 //==============================================================================
 /**
@@ -61,8 +62,8 @@ public:
 private:
     //std::unique_ptr<ValueWithDefault> is_neg_harm_processing_active_;
     //ValueWithDefault is_neg_harm_processing_active {audio_processor_value_tree_state_, new Identifier("is_neg_harm_processing_active"), nullptr}
-
     MidiProcessor midi_processor_;
+    ToNegativeHarmonyController controller_;
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ToNegativeHarmonyProcessor)

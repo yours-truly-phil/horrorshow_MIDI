@@ -168,7 +168,7 @@ bool ToNegativeHarmonyProcessor::hasEditor() const
 
 AudioProcessorEditor* ToNegativeHarmonyProcessor::createEditor()
 {
-    return new ToNegativeHarmonyEditor(*this);
+    return new ToNegativeHarmonyEditor(*this, controller_);
 }
 
 //==============================================================================

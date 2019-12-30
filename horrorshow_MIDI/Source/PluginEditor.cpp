@@ -12,12 +12,12 @@
 #include "PluginEditor.h"
 
 //==============================================================================
-ToNegativeHarmonyEditor::ToNegativeHarmonyEditor(ToNegativeHarmonyProcessor& p)
-    : AudioProcessorEditor(&p), processor(p),
-      midi_keyboard_component_(midi_keyboard_state_, MidiKeyboardComponent::horizontalKeyboard)
+ToNegativeHarmonyEditor::ToNegativeHarmonyEditor(ToNegativeHarmonyProcessor& p, ToNegativeHarmonyController& c)
+    : AudioProcessorEditor(&p), processor(p), controller_(c)
 {
     midi_keyboard_state_.addListener(this);
     toggle_neg_harm_button_.addListener(this);
+    toggle_neg_harm_button_.onClick = [this] { controller_.switchIsToNegativeHarmonyActive(); };
     toggle_neg_harm_button_.setClickingTogglesState(true);
     toggle_neg_harm_button_.setToggleState(processor.is_midi_convertion_on,sendNotification);
     // Make sure that before the constructor has finished, you've set the
@@ -32,22 +32,25 @@ ToNegativeHarmonyEditor::ToNegativeHarmonyEditor(ToNegativeHarmonyProcessor& p)
 
 ToNegativeHarmonyEditor::~ToNegativeHarmonyEditor()
 {
+    midi_keyboard_state_.removeListener(this);
+    toggle_neg_harm_button_.removeListener(this);
+    
 }
 
 //==============================================================================
 void ToNegativeHarmonyEditor::buttonClicked(Button* button)
 {
-    switch(button->getState())
-    {
-    case Button::buttonNormal:
-        processor.is_midi_convertion_on = false;
-        break;
-    case Button::buttonOver: break;
-    case Button::buttonDown:
-        processor.is_midi_convertion_on = true;
-        break;
-    default: ;
-    }
+    //switch(button->getState())
+    //{
+    //case Button::buttonNormal:
+    //    processor.is_midi_convertion_on = false;
+    //    break;
+    //case Button::buttonOver: break;
+    //case Button::buttonDown:
+    //    processor.is_midi_convertion_on = true;
+    //    break;
+    //default: ;
+    //}
 }
 
 void ToNegativeHarmonyEditor::handleNoteOn(MidiKeyboardState* source, int midiChannel, int midiNoteNumber, float velocity)
