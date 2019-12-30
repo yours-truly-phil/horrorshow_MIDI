@@ -16,10 +16,10 @@ ToNegativeHarmonyEditor::ToNegativeHarmonyEditor(ToNegativeHarmonyProcessor& p, 
     : AudioProcessorEditor(&p), processor(p), controller_(c)
 {
     midi_keyboard_state_.addListener(this);
-    toggle_neg_harm_button_.addListener(this);
+    //toggle_neg_harm_button_.addListener(this);
     toggle_neg_harm_button_.onClick = [this] { controller_.switchIsToNegativeHarmonyActive(); };
     toggle_neg_harm_button_.setClickingTogglesState(true);
-    toggle_neg_harm_button_.setToggleState(processor.is_midi_convertion_on,sendNotification);
+    //toggle_neg_harm_button_.setToggleState(processor.is_midi_convertion_on,sendNotification);
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
     setSize(600, 200);

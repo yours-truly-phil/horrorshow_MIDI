@@ -57,7 +57,7 @@ public:
     void getStateInformation(MemoryBlock& destData) override;
     void setStateInformation(const void* data, int sizeInBytes) override;
 
-    bool is_midi_convertion_on = true;
+    //bool is_midi_convertion_on = true;
 
 private:
     //std::unique_ptr<ValueWithDefault> is_neg_harm_processing_active_;

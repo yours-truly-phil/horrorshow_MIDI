@@ -20,8 +20,9 @@
 class ToNegativeHarmonyController : ValueTree::Listener
 {
 
-  const Identifier value_tree_id_ =  "plugin_value_tree";
-  const Identifier is_plugin_active_ = "active_Key";
+  //std::unique_ptr<Identifier> value_tree_id_ =  "plugin_value_tree";
+  const Identifier is_plugin_active_id_ = "is_plugin_active";
+  //AudioParameterBool is_plugin_active_default_ {"is_plugin_active_param_id", "is_plugin_active_param_name", false};
   const Identifier active_key_ = "active_Key";
 
 public:
@@ -31,8 +32,10 @@ public:
   void switchIsToNegativeHarmonyActive();
 
 private:
+  ValueTree initValueTree();
+
   //ToNegativeHarmonyProcessor& processor_;
-  ValueTree value_tree_ {value_tree_id_};
+  ValueTree value_tree_;
   //std::unique_ptr<AudioProcessorValueTreeState> root_item_;
   //UndoManager undo_manager_;
 
