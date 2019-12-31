@@ -26,18 +26,12 @@ ToNegativeHarmonyProcessor::ToNegativeHarmonyProcessor()
 #else
     :
 #endif
-parameters_ ( *this, nullptr, Identifier("PARAMETERS"),
-        {
-            std::make_unique<AudioParameterInt>(ID_TONIC_NN,"Note number of active tonic",0, 127, 60),
-            std::make_unique<AudioParameterChoice>(ID_PLUGIN_STATE, "Plugin State", StringArray {"ON", "BYPASS"}, 0)
-        } )
+value_tree_state_(*this, nullptr, "PARAMETERS", create_parameters())
 {
-    
 }
  
 ToNegativeHarmonyProcessor::~ToNegativeHarmonyProcessor()
-{
-}
+= default;
 
 //==============================================================================
 const String ToNegativeHarmonyProcessor::getName() const
@@ -140,9 +134,9 @@ bool ToNegativeHarmonyProcessor::isBusesLayoutSupported (const BusesLayout& layo
 
 void ToNegativeHarmonyProcessor::processBlock(AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
 {
-    ScopedNoDenormals noDenormals;
-    auto totalNumInputChannels = getTotalNumInputChannels();
-    auto totalNumOutputChannels = getTotalNumOutputChannels();
+    ScopedNoDenormals no_denormals;
+    const auto total_num_input_channels = getTotalNumInputChannels();
+    const auto total_num_output_channels = getTotalNumOutputChannels();
 
     // In case we have more outputs than inputs, this code clears any output
     // channels that didn't contain input data, (because these aren't
@@ -150,7 +144,7 @@ void ToNegativeHarmonyProcessor::processBlock(AudioBuffer<float>& buffer, MidiBu
     // This is here to avoid people getting screaming feedback
     // when they first compile a plugin, but obviously you don't need to keep
     // this code if your algorithm always overwrites all the output channels.
-    for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
+    for (auto i = total_num_input_channels; i < total_num_output_channels; ++i)
         buffer.clear(i, 0, buffer.getNumSamples());
     
     // This is the place where you'd normally do the guts of your plugin's
@@ -159,12 +153,12 @@ void ToNegativeHarmonyProcessor::processBlock(AudioBuffer<float>& buffer, MidiBu
     // the samples and the outer loop is handling the channels.
     // Alternatively, you can process the samples with the channels
     // interleaved by keeping the same state.
-    for (int channel = 0; channel < totalNumInputChannels; ++channel)
-    {
-        auto* channelData = buffer.getWritePointer(channel);
+    //for (auto channel = 0; channel < totalNumInputChannels; ++channel)
+    //{
+    //    auto* channelData = buffer.getWritePointer(channel);
 
-        // ..do something to the data...
-    }
+    //    // ..do something to the data...
+    //}
 
     midi_processor_.process(midiMessages);
 }
@@ -177,7 +171,8 @@ bool ToNegativeHarmonyProcessor::hasEditor() const
 
 AudioProcessorEditor* ToNegativeHarmonyProcessor::createEditor()
 {
-    return new ToNegativeHarmonyEditor(*this, parameters_);
+    //return new ToNegativeHarmonyEditor(*this, parameters_);
+    return new ToNegativeHarmonyEditor(*this);
 }
 
 //==============================================================================
@@ -186,26 +181,42 @@ void ToNegativeHarmonyProcessor::getStateInformation(MemoryBlock& destData)
     // You should use this method to store your parameters in the memory block.
     // You could do that either as raw data, or use the XML or ValueTree classes
     // as intermediaries to make it easy to save and load complex data.
-    const auto state = parameters_.copyState();
-    const auto xml(state.createXml());
-    copyXmlToBinary(*xml, destData);
+    //
+    // TODO
+    //std::unique_ptr<XmlElement> xml(new XmlElement(getName()));
+    //xml->setAttribute(kIdPluginState, p_plugin_state_->getCurrentChoiceName());
+    //xml->setAttribute(kIdTonicNn, *p_tonic_note_no_);
+    //copyXmlToBinary(*xml, destData);
 }
 
 void ToNegativeHarmonyProcessor::setStateInformation(const void* data, int sizeInBytes)
 {
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
-    const auto xml_state(getXmlFromBinary(data, sizeInBytes));
-
-    if (xml_state != nullptr)
-        if (xml_state->hasTagName(parameters_.state.getType()))
-            parameters_.replaceState(ValueTree::fromXml(*xml_state));
+    //const auto xml_state(getXmlFromBinary(data, sizeInBytes));
+    //
+    // TODO
+    //if(xml_state != nullptr)
+    //{
+    //    if(xml_state->hasTagName(getName()))
+    //    {
+    //        *p_plugin_state_ = xml_state->getIntAttribute(kIdPluginState);
+    //        *p_tonic_note_no_ = xml_state->getIntAttribute(kIdTonicNn);
+    //    }
+    //}
 }
-
 
 //==============================================================================
 // This creates new instances of the plugin..
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
     return new ToNegativeHarmonyProcessor();
+}
+
+AudioProcessorValueTreeState::ParameterLayout ToNegativeHarmonyProcessor::create_parameters() const
+{
+    std::vector<std::unique_ptr<RangedAudioParameter>> parameters;
+    parameters.push_back(std::make_unique<AudioParameterChoice> (kIdPluginState, "Plugin State", StringArray("ON", "BYPASS"), 0));
+    parameters.push_back(std::make_unique<AudioParameterInt> (kIdTonicNn, "Note number of active tonic", 0, 127, 60));
+    return { parameters.begin(), parameters.end() };
 }

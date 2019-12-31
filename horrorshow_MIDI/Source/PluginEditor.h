@@ -14,6 +14,8 @@
 #include "PluginProcessor.h"
 
 typedef AudioProcessorValueTreeState::ButtonAttachment ButtonAttachment;
+typedef AudioProcessorValueTreeState::ComboBoxAttachment ComboBoxAttachment;
+typedef AudioProcessorValueTreeState::SliderAttachment SliderAttachment;
 
 //==============================================================================
 /**
@@ -21,7 +23,7 @@ typedef AudioProcessorValueTreeState::ButtonAttachment ButtonAttachment;
 class ToNegativeHarmonyEditor : public AudioProcessorEditor, private MidiKeyboardStateListener
 {
 public:
-    ToNegativeHarmonyEditor(ToNegativeHarmonyProcessor&, AudioProcessorValueTreeState&);
+    ToNegativeHarmonyEditor(ToNegativeHarmonyProcessor&);
     ~ToNegativeHarmonyEditor();
 
     //==============================================================================
@@ -35,15 +37,21 @@ private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
     ToNegativeHarmonyProcessor& processor_;
-    AudioProcessorValueTreeState& value_tree_state_;
+    //AudioProcessorValueTreeState& value_tree_state_;
+    
+    MidiKeyboardState state_midi_keyboard_;
 
-    MidiKeyboardState midi_keyboard_state_;
-    MidiKeyboardComponent midi_keyboard_component_{midi_keyboard_state_, MidiKeyboardComponent::horizontalKeyboard};
+    MidiKeyboardComponent   c_midi_keyboard_        {state_midi_keyboard_, MidiKeyboardComponent::horizontalKeyboard};
+    ToggleButton            c_power_on_button_      {"to negative Harmony"};
+    Slider                  c_tonic_note_no_slider_ { Slider::SliderStyle::LinearHorizontal, Slider::TextEntryBoxPosition::TextBoxBelow };
+    ComboBox                c_choice_box_           {"plugin_states_choice_box"};
+    Label                   c_plugin_ui_header_     {"label_plugin_header", processor_.getName()};
 
-    ToggleButton power_on_button_ {"to negative Harmony"};
-    std::unique_ptr<ButtonAttachment> power_on_button_attachment_;
+    std::unique_ptr<ButtonAttachment>   act_power_on_button_;
+    std::unique_ptr<SliderAttachment>   act_tonic_note_no_slider_;
+    std::unique_ptr<ComboBoxAttachment> act_choice_box_;
 
-    Label plugin_ui_header_{"label_plugin_header", processor_.getName()};
+    
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ToNegativeHarmonyEditor)
 };

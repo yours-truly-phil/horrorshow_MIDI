@@ -13,23 +13,26 @@
 #include "PluginProcessor.h"
 
 //==============================================================================
-ToNegativeHarmonyEditor::ToNegativeHarmonyEditor(ToNegativeHarmonyProcessor& p, AudioProcessorValueTreeState& v)
-    : AudioProcessorEditor(&p), processor_(p), value_tree_state_(v)
+ToNegativeHarmonyEditor::ToNegativeHarmonyEditor(ToNegativeHarmonyProcessor& p)
+    : AudioProcessorEditor(&p), processor_(p)
 {
-    midi_keyboard_state_.addListener(this);
+    state_midi_keyboard_.addListener(this);
+    addAndMakeVisible(c_midi_keyboard_);
 
-    setSize(600, 200);
+    addAndMakeVisible(c_power_on_button_);
 
-    addAndMakeVisible(midi_keyboard_component_);
-    addAndMakeVisible(plugin_ui_header_);
-    addAndMakeVisible(power_on_button_);
-    power_on_button_attachment_.reset(new ButtonAttachment(value_tree_state_, ID_PLUGIN_STATE, power_on_button_));
+    addAndMakeVisible(c_tonic_note_no_slider_);
 
+    addAndMakeVisible(c_choice_box_);
+
+    addAndMakeVisible(c_plugin_ui_header_);
+
+    setSize(800, 300);
 }
 
 ToNegativeHarmonyEditor::~ToNegativeHarmonyEditor()
 {
-    midi_keyboard_state_.removeListener(this);
+    state_midi_keyboard_.removeListener(this);
 }
 
 //==============================================================================
@@ -52,12 +55,16 @@ void ToNegativeHarmonyEditor::paint(Graphics& g)
 
 void ToNegativeHarmonyEditor::resized()
 {
-    // This is generally where you'll want to lay out the positions of any
-    // subcomponents in your editor..
-    power_on_button_.setBounds(0, 0, getWidth(), 100);
-    power_on_button_.changeWidthToFitText();
-    midi_keyboard_component_.setBounds(0, 100, 600, 100);
+    auto bounds = getLocalBounds();
 
-    plugin_ui_header_.setBounds(0, 0, getWidth(), 100);
-    plugin_ui_header_.setJustificationType(Justification::topRight);
+    c_midi_keyboard_.setBounds(bounds.removeFromBottom(200));
+
+    c_power_on_button_.setBounds(bounds.removeFromLeft(200));
+
+    c_tonic_note_no_slider_.setBounds(bounds.removeFromLeft(200));
+
+    c_choice_box_.setBounds(bounds.removeFromLeft(200));
+
+    c_plugin_ui_header_.setBounds(bounds.removeFromRight(200));
+    c_plugin_ui_header_.setJustificationType(Justification::topRight);
 }
