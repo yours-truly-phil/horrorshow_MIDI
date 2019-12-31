@@ -15,23 +15,23 @@
 class MidiProcessor
 {
 public:
-  void process(MidiBuffer& midiMessages)
+  void process(MidiBuffer& midi_messages)
   {
     p_midi_buffer_.clear();
 
-    MidiBuffer::Iterator it(midiMessages);
-    MidiMessage currentMessage;
-    int samplePos;
+    MidiBuffer::Iterator it(midi_messages);
+    MidiMessage current_message;
+    int sample_pos;
 
-    while(it.getNextEvent(currentMessage, samplePos))
+    while(it.getNextEvent(current_message, sample_pos))
     {
-      if(currentMessage.isNoteOnOrOff())
+      if(current_message.isNoteOnOrOff())
       {
         // TODO: process neg harmony
       }
-      p_midi_buffer_.addEvent(currentMessage, samplePos);
+      p_midi_buffer_.addEvent(current_message, sample_pos);
     }
-    midiMessages.swapWith(p_midi_buffer_);
+    midi_messages.swapWith(p_midi_buffer_);
   }
 
 private:

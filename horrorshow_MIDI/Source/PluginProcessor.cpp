@@ -28,8 +28,8 @@ ToNegativeHarmonyProcessor::ToNegativeHarmonyProcessor()
 #endif
 parameters_ ( *this, nullptr, Identifier("PARAMETERS"),
         {
-            std::make_unique<AudioParameterInt>("id_tonic_nn","Note number of active tonic",0, 127, 60),
-            std::make_unique<AudioParameterChoice>("id_plugin_state", "Plugin State", StringArray {"ON", "BYPASS"}, 0)
+            std::make_unique<AudioParameterInt>(ID_TONIC_NN,"Note number of active tonic",0, 127, 60),
+            std::make_unique<AudioParameterChoice>(ID_PLUGIN_STATE, "Plugin State", StringArray {"ON", "BYPASS"}, 0)
         } )
 {
     
