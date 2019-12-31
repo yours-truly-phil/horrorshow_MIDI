@@ -1,4 +1,5 @@
 /*
+/*
   ==============================================================================
 
     ToNegativeHarmonyController.h
@@ -6,7 +7,7 @@
     Author:  phili
 
   ==============================================================================
-*/
+#1#
 
 #pragma once
 
@@ -19,11 +20,8 @@
 
 class ToNegativeHarmonyController : ValueTree::Listener
 {
-
-  //std::unique_ptr<Identifier> value_tree_id_ =  "plugin_value_tree";
-  const Identifier is_plugin_active_id_ = "is_plugin_active";
-  //AudioParameterBool is_plugin_active_default_ {"is_plugin_active_param_id", "is_plugin_active_param_name", false};
-  const Identifier active_key_ = "active_Key";
+  const Identifier id_is_on_neg_harm_conversion_ = "is_on_neg_harm_conversion";
+  const Identifier id_active_tonic_note_number_ = "active_tonic_note_number";
 
 public:
   ToNegativeHarmonyController();
@@ -31,6 +29,7 @@ public:
 
   void switchIsToNegativeHarmonyActive();
 
+  //ValueTree& getValueTree();
 private:
   ValueTree initValueTree();
 
@@ -42,3 +41,4 @@ private:
   //==============================================================================
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ToNegativeHarmonyController)
 };
+*/

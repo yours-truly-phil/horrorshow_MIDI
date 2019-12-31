@@ -12,29 +12,30 @@
 #include "PluginEditor.h"
 
 //==============================================================================
-ToNegativeHarmonyEditor::ToNegativeHarmonyEditor(ToNegativeHarmonyProcessor& p, ToNegativeHarmonyController& c)
-    : AudioProcessorEditor(&p), processor(p), controller_(c)
+ToNegativeHarmonyEditor::ToNegativeHarmonyEditor(ToNegativeHarmonyProcessor& p, AudioProcessorValueTreeState& v)
+    : AudioProcessorEditor(&p), processor_(p), value_tree_state_(v)
 {
     midi_keyboard_state_.addListener(this);
-    //toggle_neg_harm_button_.addListener(this);
-    toggle_neg_harm_button_.onClick = [this] { controller_.switchIsToNegativeHarmonyActive(); };
-    toggle_neg_harm_button_.setClickingTogglesState(true);
-    //toggle_neg_harm_button_.setToggleState(processor.is_midi_convertion_on,sendNotification);
+    //power_On_Button.addListener(this);
+    //power_on_button_.onClick = [this] { controller_.switchIsToNegativeHarmonyActive(); };
+
+    //power_On_Button.setClickingTogglesState(true);
+    //power_On_Button.setToggleState(processor.is_midi_convertion_on,sendNotification);
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
     setSize(600, 200);
 
     addAndMakeVisible(midi_keyboard_component_);
     addAndMakeVisible(plugin_ui_header_);
-    addAndMakeVisible(toggle_neg_harm_button_);
+    addAndMakeVisible(power_on_button_);
+    power_on_button_attachment_.reset(new ButtonAttachment(value_tree_state_, "id_plugin_state", power_on_button_));
 
 }
 
 ToNegativeHarmonyEditor::~ToNegativeHarmonyEditor()
 {
     midi_keyboard_state_.removeListener(this);
-    toggle_neg_harm_button_.removeListener(this);
-    
+    power_on_button_.removeListener(this);
 }
 
 //==============================================================================
@@ -74,8 +75,8 @@ void ToNegativeHarmonyEditor::resized()
 {
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
-    toggle_neg_harm_button_.setBounds(0, 0, getWidth(), 100);
-    toggle_neg_harm_button_.changeWidthToFitText();
+    power_on_button_.setBounds(0, 0, getWidth(), 100);
+    power_on_button_.changeWidthToFitText();
     midi_keyboard_component_.setBounds(0, 100, 600, 100);
 
     //auto event_list_width = 100;

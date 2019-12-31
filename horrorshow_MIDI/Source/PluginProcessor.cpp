@@ -9,6 +9,7 @@
 */
 
 #include "PluginProcessor.h"
+
 #include "PluginEditor.h"
 
 //==============================================================================
@@ -21,9 +22,17 @@ ToNegativeHarmonyProcessor::ToNegativeHarmonyProcessor()
 #endif
                        .withOutput ("Output", AudioChannelSet::stereo(), true)
 #endif
-                       )
+                       ) ,
+#else
+    :
 #endif
+parameters_ ( *this, nullptr, Identifier("PARAMETERS"),
+        {
+            std::make_unique<AudioParameterInt>("id_tonic_nn","Note number of active tonic",0, 127, 60),
+            std::make_unique<AudioParameterChoice>("id_plugin_state", "Plugin State", StringArray {"ON", "BYPASS"}, 0)
+        } )
 {
+    
 }
  
 ToNegativeHarmonyProcessor::~ToNegativeHarmonyProcessor()
@@ -168,7 +177,7 @@ bool ToNegativeHarmonyProcessor::hasEditor() const
 
 AudioProcessorEditor* ToNegativeHarmonyProcessor::createEditor()
 {
-    return new ToNegativeHarmonyEditor(*this, controller_);
+    return new ToNegativeHarmonyEditor(*this, parameters_);
 }
 
 //==============================================================================
@@ -177,12 +186,20 @@ void ToNegativeHarmonyProcessor::getStateInformation(MemoryBlock& destData)
     // You should use this method to store your parameters in the memory block.
     // You could do that either as raw data, or use the XML or ValueTree classes
     // as intermediaries to make it easy to save and load complex data.
+    const auto state = parameters_.copyState();
+    const auto xml(state.createXml());
+    copyXmlToBinary(*xml, destData);
 }
 
 void ToNegativeHarmonyProcessor::setStateInformation(const void* data, int sizeInBytes)
 {
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
+    const auto xml_state(getXmlFromBinary(data, sizeInBytes));
+
+    if (xml_state != nullptr)
+        if (xml_state->hasTagName(parameters_.state.getType()))
+            parameters_.replaceState(ValueTree::fromXml(*xml_state));
 }
 
 
