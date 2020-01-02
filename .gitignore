@@ -37,3 +37,4 @@ JuceLibraryCode
 !JuceLibraryCode/AppData.h
 !JuceLibraryCode/BinaryData.*
 **/.vs
+/.idea/

@@ -131,6 +131,7 @@
   <LIVE_SETTINGS>
     <WINDOWS buildEnabled="0" systemHeaderPath="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include;&#10;C:\SDKs\asiosdk_2.3.3_2019-06-14\common;&#10;"
              warningsEnabled="1" windowsTargetPlatformVersion="10.0.18362.0"/>
+    <LINUX/>
   </LIVE_SETTINGS>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_ASIO="1" JUCE_WASAPI="1"
                JUCE_WASAPI_EXCLUSIVE="1" JUCE_DIRECTSOUND="1" JUCE_JACK="1"
