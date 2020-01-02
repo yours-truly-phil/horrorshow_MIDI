@@ -20,13 +20,15 @@ ToNegativeHarmonyEditor::ToNegativeHarmonyEditor(ToNegativeHarmonyProcessor& p, 
     addAndMakeVisible(c_midi_keyboard_);
 
     addAndMakeVisible(c_power_on_button_);
-    c_power_on_button_attachment_ = std::make_unique<ButtonAttachment>(processor_value_tree_state_, kIdPluginState, c_power_on_button_);
+    c_power_on_button_attachment_ = std::make_unique<ButtonAttachment>(processor_value_tree_state_, kIdIsProcessingActive, c_power_on_button_);
 
     addAndMakeVisible(c_tonic_note_no_slider_);
     c_tonic_note_no_slider_attachment_ = std::make_unique<SliderAttachment>(processor_value_tree_state_, kIdTonicNn, c_tonic_note_no_slider_);
 
+    c_choice_box_.addItem("Choice 1", 1);
+    c_choice_box_.addItem("Choice 2", 2);
     addAndMakeVisible(c_choice_box_);
-    c_choice_box_attachment_ = std::make_unique<ComboBoxAttachment>(processor_value_tree_state_, kIdPluginState, c_choice_box_);
+    c_choice_box_attachment_ = std::make_unique<ComboBoxAttachment>(processor_value_tree_state_, kIdIsProcessingActive, c_choice_box_);
 
     addAndMakeVisible(c_plugin_ui_header_);
 

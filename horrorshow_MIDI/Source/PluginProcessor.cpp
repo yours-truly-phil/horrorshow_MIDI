@@ -15,21 +15,23 @@
 //==============================================================================
 ToNegativeHarmonyProcessor::ToNegativeHarmonyProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
-     : AudioProcessor (BusesProperties()
-#if ! JucePlugin_IsMidiEffect
-#if ! JucePlugin_IsSynth
-                       .withInput  ("Input",  AudioChannelSet::stereo(), true)
-#endif
-                       .withOutput ("Output", AudioChannelSet::stereo(), true)
-#endif
-                       ) ,
+    : AudioProcessor(BusesProperties()
+    #if ! JucePlugin_IsMidiEffect
+    #if ! JucePlugin_IsSynth
+        .withInput("Input", AudioChannelSet::stereo(), true)
+    #endif
+        .withOutput("Output", AudioChannelSet::stereo(), true)
+    #endif
+    ),
 #else
     :
 #endif
 value_tree_state_(*this, nullptr, "PARAMETERS", create_parameters())
 {
+    is_on_ = value_tree_state_.getRawParameterValue(kIdIsProcessingActive);
+    cur_tonic_ = value_tree_state_.getRawParameterValue(kIdTonicNn);
 }
- 
+
 ToNegativeHarmonyProcessor::~ToNegativeHarmonyProcessor()
 = default;
 
@@ -91,7 +93,7 @@ const String ToNegativeHarmonyProcessor::getProgramName(int index)
     return {};
 }
 
-void ToNegativeHarmonyProcessor::changeProgramName(int index, const String& newName)
+void ToNegativeHarmonyProcessor::changeProgramName(int index, const String & newName)
 {
 }
 
@@ -109,16 +111,16 @@ void ToNegativeHarmonyProcessor::releaseResources()
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
-bool ToNegativeHarmonyProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
+bool ToNegativeHarmonyProcessor::isBusesLayoutSupported(const BusesLayout & layouts) const
 {
 #if JucePlugin_IsMidiEffect
-    ignoreUnused (layouts);
+    ignoreUnused(layouts);
     return true;
 #else
-// This is the place where you check if the layout is supported.
-    // In this template code we only support mono or stereo.
+    // This is the place where you check if the layout is supported.
+        // In this template code we only support mono or stereo.
     if (layouts.getMainOutputChannelSet() != AudioChannelSet::mono()
-     && layouts.getMainOutputChannelSet() != AudioChannelSet::stereo())
+        && layouts.getMainOutputChannelSet() != AudioChannelSet::stereo())
         return false;
 
     // This checks if the input layout matches the output layout
@@ -132,7 +134,7 @@ bool ToNegativeHarmonyProcessor::isBusesLayoutSupported (const BusesLayout& layo
 }
 #endif
 
-void ToNegativeHarmonyProcessor::processBlock(AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
+void ToNegativeHarmonyProcessor::processBlock(AudioBuffer<float> & buffer, MidiBuffer & midiMessages)
 {
     ScopedNoDenormals no_denormals;
     const auto total_num_input_channels = getTotalNumInputChannels();
@@ -146,7 +148,7 @@ void ToNegativeHarmonyProcessor::processBlock(AudioBuffer<float>& buffer, MidiBu
     // this code if your algorithm always overwrites all the output channels.
     for (auto i = total_num_input_channels; i < total_num_output_channels; ++i)
         buffer.clear(i, 0, buffer.getNumSamples());
-    
+
     // This is the place where you'd normally do the guts of your plugin's
     // audio processing...
     // Make sure to reset the state if your inner loop is processing
@@ -159,6 +161,12 @@ void ToNegativeHarmonyProcessor::processBlock(AudioBuffer<float>& buffer, MidiBu
 
     //    // ..do something to the data...
     //}
+   
+    //auto* val_tonic_note_no = value_tree_state_.getRawParameterValue(kIdTonicNn);
+    //auto* val_plugin_state = value_tree_state_.getRawParameterValue(kIdIsProcessingActive);
+    
+    // DONETODO: WORKS
+    // DBG("Plugin State: " << *is_on_ << " and tonic note number: " << *cur_tonic_);
 
     midi_processor_.process(midiMessages);
 }
@@ -175,7 +183,7 @@ AudioProcessorEditor* ToNegativeHarmonyProcessor::createEditor()
 }
 
 //==============================================================================
-void ToNegativeHarmonyProcessor::getStateInformation(MemoryBlock& destData)
+void ToNegativeHarmonyProcessor::getStateInformation(MemoryBlock & destData)
 {
     // You should use this method to store your parameters in the memory block.
     // You could do that either as raw data, or use the XML or ValueTree classes
@@ -212,10 +220,45 @@ AudioProcessor* JUCE_CALLTYPE createPluginFilter()
     return new ToNegativeHarmonyProcessor();
 }
 
+
 AudioProcessorValueTreeState::ParameterLayout ToNegativeHarmonyProcessor::create_parameters() const
 {
     std::vector<std::unique_ptr<RangedAudioParameter>> params;
-    params.push_back(std::make_unique<AudioParameterChoice> (kIdPluginState, "Plugin State", StringArray("ON", "BYPASS"), 0));
+
+    /*Die Lambda methoden get by id und get id by label oder wat sind so schon
+    in der AttachmentChoice dingens cpp implementiert (also mit substr und indexof etc.)*/
+
+    //StringArray states ("ON", "BYPASS");
+    //String state_label ("The state of the conversion to negative harmony");
+
+    //auto get_state_idx = [&states] (const int i, const int str_length)
+    //{
+    //    return states[i].substring(0, str_length);
+    //};
+    //auto get_state = [&states](const String& text)
+    //{
+    //    return states.indexOf(text);
+    //};
+
+    //params.push_back(std::make_unique<AudioParameterChoice>
+    //    (
+    //    kIdPluginState,             // The parameter ID to use
+    //    "Plugin State",             // The parameter name to use
+    //    states,                     // The set of choices to use
+    //    0,                          // The index of the default choice               
+    //    state_label,                // An optional label for the parameters' value
+    //    get_state_idx,              // An optional lambda function that converts a choice index
+    //                                // to a string with a maximum length. This may be used by hosts
+    //                                // to display the parameters' values.
+    //    get_state                   // An optional lambda function that parses a string and convertes
+    //                                // it into a choice index.
+    //    )
+    //);
+    //std::make_unique<AudioParameterChoice>(kIdPluginState, "Plugin State", StringArray("ON", "OFF", "FOR", "NOW", "MAYBE", "BYPASS", "OR", "ANALYZE", "LOOPING", "STATES", "POSSIBLE"), 0);
+
+    params.push_back(std::make_unique<AudioParameterBool>(kIdIsProcessingActive, "is processing active", false));
+
     params.push_back(std::make_unique<AudioParameterInt> (kIdTonicNn, "Note number of active tonic", 0, 127, 60));
+
     return { params.begin(), params.end() };
 }

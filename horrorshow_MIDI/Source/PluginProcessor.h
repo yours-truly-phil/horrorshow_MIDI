@@ -13,8 +13,9 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "MidiProcessor.h"
 
-constexpr auto kIdTonicNn = "id_tonic_nn";
-constexpr auto kIdPluginState = "id_plugin_state";
+constexpr auto kIdTonicNn               = "id_tonic_nn";
+//constexpr auto kIdPluginState           = "id_plugin_state";
+constexpr auto kIdIsProcessingActive    = "id_is_processing_active";
 
 //==============================================================================
 /**
@@ -65,11 +66,11 @@ private:
     MidiProcessor midi_processor_;
 
     AudioProcessorValueTreeState value_tree_state_;
+
+    std::atomic<float>* is_on_;
+    std::atomic<float>* cur_tonic_;
+
     AudioProcessorValueTreeState::ParameterLayout create_parameters() const;
-
-    //AudioParameterChoice* p_plugin_state_{ new AudioParameterChoice(kIdPluginState, "Plugin State", StringArray{ "ON", "BYPASS" }, 0) };
-    //AudioParameterInt* p_tonic_note_no_{ new AudioParameterInt(kIdTonicNn, "Note number of active tonic", 0, 127, 60)};
-
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ToNegativeHarmonyProcessor)
 };

@@ -41,15 +41,15 @@ private:
     
     MidiKeyboardState state_midi_keyboard_;
 
-    std::unique_ptr<ButtonAttachment>   c_power_on_button_attachment_;
-    std::unique_ptr<SliderAttachment>   c_tonic_note_no_slider_attachment_;
-    std::unique_ptr<ComboBoxAttachment> c_choice_box_attachment_;
-
     MidiKeyboardComponent   c_midi_keyboard_        {state_midi_keyboard_, MidiKeyboardComponent::horizontalKeyboard};
     ToggleButton            c_power_on_button_      {"to negative Harmony"};
     Slider                  c_tonic_note_no_slider_ { Slider::SliderStyle::LinearHorizontal, Slider::TextEntryBoxPosition::TextBoxBelow };
     ComboBox                c_choice_box_           {"plugin_states_choice_box"};
     Label                   c_plugin_ui_header_     { "label_plugin_header", processor_.getName() };
+
+    std::unique_ptr<ButtonAttachment>   c_power_on_button_attachment_;
+    std::unique_ptr<SliderAttachment>   c_tonic_note_no_slider_attachment_;
+    std::unique_ptr<ComboBoxAttachment> c_choice_box_attachment_;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ToNegativeHarmonyEditor)
 };
