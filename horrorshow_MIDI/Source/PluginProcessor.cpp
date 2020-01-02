@@ -171,8 +171,7 @@ bool ToNegativeHarmonyProcessor::hasEditor() const
 
 AudioProcessorEditor* ToNegativeHarmonyProcessor::createEditor()
 {
-    //return new ToNegativeHarmonyEditor(*this, parameters_);
-    return new ToNegativeHarmonyEditor(*this);
+    return new ToNegativeHarmonyEditor(*this, value_tree_state_);
 }
 
 //==============================================================================
@@ -215,8 +214,8 @@ AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 
 AudioProcessorValueTreeState::ParameterLayout ToNegativeHarmonyProcessor::create_parameters() const
 {
-    std::vector<std::unique_ptr<RangedAudioParameter>> parameters;
-    parameters.push_back(std::make_unique<AudioParameterChoice> (kIdPluginState, "Plugin State", StringArray("ON", "BYPASS"), 0));
-    parameters.push_back(std::make_unique<AudioParameterInt> (kIdTonicNn, "Note number of active tonic", 0, 127, 60));
-    return { parameters.begin(), parameters.end() };
+    std::vector<std::unique_ptr<RangedAudioParameter>> params;
+    params.push_back(std::make_unique<AudioParameterChoice> (kIdPluginState, "Plugin State", StringArray("ON", "BYPASS"), 0));
+    params.push_back(std::make_unique<AudioParameterInt> (kIdTonicNn, "Note number of active tonic", 0, 127, 60));
+    return { params.begin(), params.end() };
 }
