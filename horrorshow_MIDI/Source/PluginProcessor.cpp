@@ -161,12 +161,6 @@ void ToNegativeHarmonyProcessor::processBlock(AudioBuffer<float> & buffer, MidiB
 
     //    // ..do something to the data...
     //}
-   
-    //auto* val_tonic_note_no = value_tree_state_.getRawParameterValue(kIdTonicNn);
-    //auto* val_plugin_state = value_tree_state_.getRawParameterValue(kIdIsProcessingActive);
-    
-    // DONETODO: WORKS
-    // DBG("Plugin State: " << *is_on_ << " and tonic note number: " << *cur_tonic_);
 
     midi_processor_.process(midiMessages);
 }
@@ -188,29 +182,21 @@ void ToNegativeHarmonyProcessor::getStateInformation(MemoryBlock & destData)
     // You should use this method to store your parameters in the memory block.
     // You could do that either as raw data, or use the XML or ValueTree classes
     // as intermediaries to make it easy to save and load complex data.
-    //
-    // TODO
-    //std::unique_ptr<XmlElement> xml(new XmlElement(getName()));
-    //xml->setAttribute(kIdPluginState, p_plugin_state_->getCurrentChoiceName());
-    //xml->setAttribute(kIdTonicNn, *p_tonic_note_no_);
-    //copyXmlToBinary(*xml, destData);
+
+    const auto state = value_tree_state_.copyState();
+    const auto xml(state.createXml());
+    copyXmlToBinary(*xml, destData);
 }
 
 void ToNegativeHarmonyProcessor::setStateInformation(const void* data, int sizeInBytes)
 {
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
-    //const auto xml_state(getXmlFromBinary(data, sizeInBytes));
-    //
-    // TODO
-    //if(xml_state != nullptr)
-    //{
-    //    if(xml_state->hasTagName(getName()))
-    //    {
-    //        *p_plugin_state_ = xml_state->getIntAttribute(kIdPluginState);
-    //        *p_tonic_note_no_ = xml_state->getIntAttribute(kIdTonicNn);
-    //    }
-    //}
+
+    const auto xml_state(getXmlFromBinary(data, sizeInBytes));
+
+    if (xml_state != nullptr && xml_state->hasTagName(value_tree_state_.state.getType()))
+        value_tree_state_.replaceState(ValueTree::fromXml(*xml_state));
 }
 
 //==============================================================================
@@ -224,37 +210,6 @@ AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 AudioProcessorValueTreeState::ParameterLayout ToNegativeHarmonyProcessor::create_parameters() const
 {
     std::vector<std::unique_ptr<RangedAudioParameter>> params;
-
-    /*Die Lambda methoden get by id und get id by label oder wat sind so schon
-    in der AttachmentChoice dingens cpp implementiert (also mit substr und indexof etc.)*/
-
-    //StringArray states ("ON", "BYPASS");
-    //String state_label ("The state of the conversion to negative harmony");
-
-    //auto get_state_idx = [&states] (const int i, const int str_length)
-    //{
-    //    return states[i].substring(0, str_length);
-    //};
-    //auto get_state = [&states](const String& text)
-    //{
-    //    return states.indexOf(text);
-    //};
-
-    //params.push_back(std::make_unique<AudioParameterChoice>
-    //    (
-    //    kIdPluginState,             // The parameter ID to use
-    //    "Plugin State",             // The parameter name to use
-    //    states,                     // The set of choices to use
-    //    0,                          // The index of the default choice               
-    //    state_label,                // An optional label for the parameters' value
-    //    get_state_idx,              // An optional lambda function that converts a choice index
-    //                                // to a string with a maximum length. This may be used by hosts
-    //                                // to display the parameters' values.
-    //    get_state                   // An optional lambda function that parses a string and convertes
-    //                                // it into a choice index.
-    //    )
-    //);
-    //std::make_unique<AudioParameterChoice>(kIdPluginState, "Plugin State", StringArray("ON", "OFF", "FOR", "NOW", "MAYBE", "BYPASS", "OR", "ANALYZE", "LOOPING", "STATES", "POSSIBLE"), 0);
 
     params.push_back(std::make_unique<AudioParameterBool>(kIdIsProcessingActive, "is processing active", false));
 

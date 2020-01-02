@@ -14,7 +14,6 @@
 #include "MidiProcessor.h"
 
 constexpr auto kIdTonicNn               = "id_tonic_nn";
-//constexpr auto kIdPluginState           = "id_plugin_state";
 constexpr auto kIdIsProcessingActive    = "id_is_processing_active";
 
 //==============================================================================
