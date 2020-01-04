@@ -38,3 +38,4 @@ JuceLibraryCode
 !JuceLibraryCode/BinaryData.*
 **/.vs
 /.idea/
+/.vscode/
