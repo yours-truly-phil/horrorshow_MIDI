@@ -10,30 +10,20 @@
 
 #pragma once
 
-#include "JuceHeader.h"
+#include "../JuceLibraryCode/JuceHeader.h"
 
 class MidiProcessor
 {
 public:
-  void process(MidiBuffer& midi_messages)
-  {
-    p_midi_buffer_.clear();
+  explicit MidiProcessor(AudioProcessorValueTreeState& vts);
+  ~MidiProcessor();
 
-    MidiBuffer::Iterator it(midi_messages);
-    MidiMessage current_message;
-    int sample_pos;
-
-    while(it.getNextEvent(current_message, sample_pos))
-    {
-      if(current_message.isNoteOnOrOff())
-      {
-        // TODO: process neg harmony
-      }
-      p_midi_buffer_.addEvent(current_message, sample_pos);
-    }
-    midi_messages.swapWith(p_midi_buffer_);
-  }
+  void process(MidiBuffer& midi_messages);
 
 private:
   MidiBuffer p_midi_buffer_;
+
+  AudioProcessorValueTreeState& vts_;
+
+  JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MidiProcessor)
 };

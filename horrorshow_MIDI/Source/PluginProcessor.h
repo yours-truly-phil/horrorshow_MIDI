@@ -8,13 +8,20 @@
   ==============================================================================
 */
 
+
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "atomic"
 #include "MidiProcessor.h"
 
 constexpr auto kIdTonicNn               = "id_tonic_nn";
 constexpr auto kIdIsProcessingActive    = "id_is_processing_active";
+
+constexpr auto kIdMinMidiNoteNumber     = "id_min_midi_note_number";
+constexpr auto kIdMaxMidiNoteNumber     = "id_max_midi_note_number";
+constexpr auto kIdMidiNNoPianoMin       = "id_min_piano_midi_note_number";
+constexpr auto kIdMidiNNoPianoMax       = "id_max_piano_midi_note_number";
 
 //==============================================================================
 /**
@@ -27,7 +34,7 @@ public:
     ~ToNegativeHarmonyProcessor();
 
     //==============================================================================
-    void prepareToPlay(double sampleRate, int samplesPerBlock) override;
+    void prepareToPlay(double sample_rate, int samples_per_block) override;
     void releaseResources() override;
 
 #ifndef JucePlugin_PreferredChannelConfigurations
@@ -53,18 +60,17 @@ public:
     int getCurrentProgram() override;
     void setCurrentProgram(int index) override;
     const String getProgramName(int index) override;
-    void changeProgramName(int index, const String& newName) override;
+    void changeProgramName(int index, const String& new_name) override;
 
     //==============================================================================
-    void getStateInformation(MemoryBlock& destData) override;
-    void setStateInformation(const void* data, int sizeInBytes) override;
+    void getStateInformation(MemoryBlock& dest_data) override;
+    void setStateInformation(const void* data, int size_in_bytes) override;
 
-    
 private:
     //==============================================================================
-    MidiProcessor midi_processor_;
+    AudioProcessorValueTreeState apvts_;
 
-    AudioProcessorValueTreeState value_tree_state_;
+    MidiProcessor midi_processor_ {apvts_};
 
     std::atomic<float>* is_on_;
     std::atomic<float>* cur_tonic_;

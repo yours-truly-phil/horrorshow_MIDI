@@ -14,6 +14,8 @@
               pluginChannelConfigs="{0,0},{1,1},{1,2},{2,2}">
   <MAINGROUP id="GNaMjk" name="ToNegativeHarmony">
     <GROUP id="{772F881A-326D-64CD-7E44-12049FCDE93E}" name="Source">
+      <FILE id="ZJ6jE8" name="MidiProcessor.cpp" compile="1" resource="0"
+            file="Source/MidiProcessor.cpp"/>
       <FILE id="KpMX36" name="MidiProcessor.h" compile="0" resource="0" file="Source/MidiProcessor.h"/>
       <FILE id="vpdtoT" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>

@@ -31,13 +31,13 @@ public:
     void resized() override;
 
 private:
-    void handleNoteOn(MidiKeyboardState* source, int midiChannel, int midiNoteNumber, float velocity) override;
-    void handleNoteOff(MidiKeyboardState* source, int midiChannel, int midiNoteNumber, float velocity) override;
+    void handleNoteOn(MidiKeyboardState* source, int midi_channel, int midi_note_number, float velocity) override;
+    void handleNoteOff(MidiKeyboardState* source, int midi_channel, int midi_note_number, float velocity) override;
 
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
     ToNegativeHarmonyProcessor& processor_;
-    AudioProcessorValueTreeState& processor_value_tree_state_;
+    AudioProcessorValueTreeState& apvts_;
     
     MidiKeyboardState state_midi_keyboard_;
 
