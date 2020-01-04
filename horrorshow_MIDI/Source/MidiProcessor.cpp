@@ -10,8 +10,13 @@
 
 #include "MidiProcessor.h"
 
-MidiProcessor::MidiProcessor(AudioProcessorValueTreeState& vts) : vts_(vts)
+#include "PluginProcessor.h"
+
+MidiProcessor::MidiProcessor(AudioProcessorValueTreeState& vts) : apvts_(vts)
 {
+  p_nn_up_bound_ = apvts_.getRawParameterValue(kIdMaxMidiNoteNumber);
+  p_nn_low_bound_ = apvts_.getRawParameterValue(kIdMinMidiNoteNumber);
+  //p_nn_bounds_ = {p_nn_low_bound_,p_nn_up_bound_};
 }
 
 MidiProcessor::~MidiProcessor()
@@ -30,7 +35,10 @@ void MidiProcessor::process(MidiBuffer& midi_messages)
   {
     if (current_message.isNoteOnOrOff())
     {
-      // TODO
+      auto nn = current_message.getNoteNumber();
+      nn = nn + (60 - nn) * 2;
+      current_message.setNoteNumber(nn);
+      //current_message = transform(current_message.getNoteNumber()*, -20);
     }
     p_midi_buffer_.addEvent(current_message, sample_pos);
   }

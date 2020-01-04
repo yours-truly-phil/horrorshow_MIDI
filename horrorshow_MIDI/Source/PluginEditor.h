@@ -24,7 +24,7 @@ class ToNegativeHarmonyEditor : public AudioProcessorEditor, MidiKeyboardStateLi
 {
 public:
     ToNegativeHarmonyEditor(ToNegativeHarmonyProcessor&, AudioProcessorValueTreeState&);
-    ~ToNegativeHarmonyEditor();
+    ~ToNegativeHarmonyEditor() override;
 
     //==============================================================================
     void paint(Graphics&) override;
