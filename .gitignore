@@ -39,3 +39,4 @@ JuceLibraryCode
 **/.vs
 /.idea/
 /.vscode/
+/CMakeFiles/
