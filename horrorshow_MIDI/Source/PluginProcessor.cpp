@@ -236,3 +236,17 @@ AudioProcessorValueTreeState::ParameterLayout ToNegativeHarmonyProcessor::create
     return { params.begin(), params.end() };
 }
  */
+
+
+/*
+ *
+ *AudioProcessorValueTreeState::ParameterLayout createParameterLayout()
+{
+    std::vector<std::unique_ptr<AudioParameterInt>> params;
+ 
+    for (int i = 1; i < 9; ++i)
+        params.push_back (std::make_unique<AudioParameterInt> (String (i), String (i), 0, i, 0));
+ 
+    return { params.begin(), params.end() };
+}
+ */
