@@ -224,9 +224,9 @@ AudioProcessorValueTreeState::ParameterLayout ToNegativeHarmonyProcessor::create
 }
 
 
-/*
- *
- *AudioProcessorValueTreeState::ParameterLayout createParameterLayout()
+
+
+AudioProcessorValueTreeState::ParameterLayout createParameterLayout()
 {
     std::vector<std::unique_ptr<AudioParameterInt>> params;
  
@@ -235,9 +235,6 @@ AudioProcessorValueTreeState::ParameterLayout ToNegativeHarmonyProcessor::create
  
     return { params.begin(), params.end() };
 }
- */
-
-
 /*
  *
  *AudioProcessorValueTreeState::ParameterLayout createParameterLayout()
