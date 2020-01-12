@@ -14,8 +14,13 @@
 
 MidiProcessor::MidiProcessor(AudioProcessorValueTreeState& vts) : apvts_(vts)
 {
-  is_on_ = apvts_.getRawParameterValue(kIdMaxMidiNoteNumber);
-  cur_tonic_ = apvts_.getRawParameterValue(kIdMinMidiNoteNumber);
+  is_on_ = apvts_.getRawParameterValue(kIdIsProcessingActive);
+  cur_tonic_ = apvts_.getRawParameterValue(kIdTonicNn);
+
+  apvts_.addParameterListener(kIdIsProcessingActive, this);
+  apvts_.addParameterListener(kIdTonicNn, this);
+
+  state_changed_ = true;
 }
 
 MidiProcessor::~MidiProcessor()
@@ -33,7 +38,11 @@ void MidiProcessor::Process(MidiBuffer& midi_messages)
   {
     if (cur_msg.isNoteOnOrOff())
     {
-      if(*is_on_)
+      if(state_changed_) {
+        p_midi_buffer_.addEvent(MidiMessage::allNotesOff(cur_msg.getChannel()), sample_pos);
+        state_changed_ = false;
+      }
+      if(*is_on_ > FLT_MIN)
       {
         auto orig_nn = cur_msg.getNoteNumber();
         auto new_nn = getNegHarmNN(orig_nn, *cur_tonic_);
@@ -45,6 +54,11 @@ void MidiProcessor::Process(MidiBuffer& midi_messages)
     p_midi_buffer_.addEvent(cur_msg, sample_pos);
   }
   midi_messages.swapWith(p_midi_buffer_);
+}
+
+void MidiProcessor::parameterChanged(const String &parameterID, float newValue)
+{
+    state_changed_ = true;
 }
 
 int MidiProcessor::getNegHarmNN(int nn, int tonic)

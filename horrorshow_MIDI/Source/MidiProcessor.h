@@ -12,7 +12,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
-class MidiProcessor
+class MidiProcessor : AudioProcessorValueTreeState::Listener
 {
 public:
   explicit MidiProcessor(AudioProcessorValueTreeState& vts);
@@ -21,6 +21,8 @@ public:
   void Process(MidiBuffer& midi_messages);
 
 private:
+  void parameterChanged (const String &parameterID, float newValue);
+
   int getNegHarmNN(int nn, int tonic);
 
   MidiBuffer p_midi_buffer_;
@@ -29,6 +31,8 @@ private:
 
   std::atomic<float>* is_on_;
   std::atomic<float>* cur_tonic_;
+
+  bool state_changed_;
 
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MidiProcessor)
 };
