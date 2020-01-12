@@ -28,8 +28,6 @@ ToNegativeHarmonyProcessor::ToNegativeHarmonyProcessor()
 #endif
 apvts_(*this, nullptr, "PARAMETERS", create_parameters())//, midi_processor_(apvts_)
 {
-    is_on_ = apvts_.getRawParameterValue(kIdIsProcessingActive);
-    cur_tonic_ = apvts_.getRawParameterValue(kIdTonicNn);
 }
 
 ToNegativeHarmonyProcessor::~ToNegativeHarmonyProcessor()
@@ -153,7 +151,7 @@ void ToNegativeHarmonyProcessor::processBlock(AudioBuffer<float> & buffer, MidiB
     // audio processing...
     // Make sure to reset the state if your inner loop is processing
     // the samples and the outer loop is handling the channels.
-    // Alternatively, you can process the samples with the channels
+    // Alternatively, you can Process the samples with the channels
     // interleaved by keeping the same state.
     //for (auto channel = 0; channel < totalNumInputChannels; ++channel)
     //{
@@ -162,7 +160,7 @@ void ToNegativeHarmonyProcessor::processBlock(AudioBuffer<float> & buffer, MidiB
     //    // ..do something to the data...
     //}
 
-    midi_processor_.process(midi_messages);
+    midi_processor_.Process(midi_messages);
 }
 
 //==============================================================================
@@ -182,21 +180,19 @@ void ToNegativeHarmonyProcessor::getStateInformation(MemoryBlock & dest_data)
     // You should use this method to store your parameters in the memory block.
     // You could do that either as raw data, or use the XML or ValueTree classes
     // as intermediaries to make it easy to save and load complex data.
-
-    const auto state = apvts_.copyState();
-    const auto xml(state.createXml());
-    copyXmlToBinary(*xml, dest_data);
+    const auto kState = apvts_.copyState();
+    const auto kXml(kState.createXml());
+    copyXmlToBinary(*kXml, dest_data);
 }
 
 void ToNegativeHarmonyProcessor::setStateInformation(const void* data, int size_in_bytes)
 {
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
+    const auto kXmlState(getXmlFromBinary(data, size_in_bytes));
 
-    const auto xml_state(getXmlFromBinary(data, size_in_bytes));
-
-    if (xml_state != nullptr && xml_state->hasTagName(apvts_.state.getType()))
-        apvts_.replaceState(ValueTree::fromXml(*xml_state));
+    if (kXmlState != nullptr && kXmlState->hasTagName(apvts_.state.getType()))
+        apvts_.replaceState(ValueTree::fromXml(*kXmlState));
 }
 
 //==============================================================================
@@ -222,28 +218,3 @@ AudioProcessorValueTreeState::ParameterLayout ToNegativeHarmonyProcessor::create
 
     return { params.begin(), params.end() };
 }
-
-
-
-
-AudioProcessorValueTreeState::ParameterLayout createParameterLayout()
-{
-    std::vector<std::unique_ptr<AudioParameterInt>> params;
- 
-    for (int i = 1; i < 9; ++i)
-        params.push_back (std::make_unique<AudioParameterInt> (String (i), String (i), 0, i, 0));
- 
-    return { params.begin(), params.end() };
-}
-/*
- *
- *AudioProcessorValueTreeState::ParameterLayout createParameterLayout()
-{
-    std::vector<std::unique_ptr<AudioParameterInt>> params;
- 
-    for (int i = 1; i < 9; ++i)
-        params.push_back (std::make_unique<AudioParameterInt> (String (i), String (i), 0, i, 0));
- 
-    return { params.begin(), params.end() };
-}
- */

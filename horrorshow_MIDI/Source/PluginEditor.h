@@ -13,13 +13,14 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "PluginProcessor.h"
 
+#define PLUGIN_HEIGHT     300
+#define PLUGIN_WIDTH      800
+
 typedef AudioProcessorValueTreeState::ButtonAttachment ButtonAttachment;
 typedef AudioProcessorValueTreeState::ComboBoxAttachment ComboBoxAttachment;
 typedef AudioProcessorValueTreeState::SliderAttachment SliderAttachment;
 
 //==============================================================================
-/**
-*/
 class ToNegativeHarmonyEditor : public AudioProcessorEditor, MidiKeyboardStateListener
 {
 public:
@@ -34,7 +35,7 @@ private:
     void handleNoteOn(MidiKeyboardState* source, int midi_channel, int midi_note_number, float velocity) override;
     void handleNoteOff(MidiKeyboardState* source, int midi_channel, int midi_note_number, float velocity) override;
 
-    // This reference is provided as a quick way for your editor to
+    // This reference provides as a quick way for your editor to
     // access the processor object that created it.
     ToNegativeHarmonyProcessor& processor_;
     AudioProcessorValueTreeState& apvts_;

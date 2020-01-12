@@ -19,7 +19,6 @@ ToNegativeHarmonyEditor::ToNegativeHarmonyEditor(ToNegativeHarmonyProcessor& p, 
     state_midi_keyboard_.addListener(this);
     addAndMakeVisible(c_midi_keyboard_);
 
-
     addAndMakeVisible(c_power_on_button_);
     c_power_on_button_attachment_ = std::make_unique<ButtonAttachment>(apvts_, kIdIsProcessingActive, c_power_on_button_);
 
@@ -33,7 +32,7 @@ ToNegativeHarmonyEditor::ToNegativeHarmonyEditor(ToNegativeHarmonyProcessor& p, 
 
     addAndMakeVisible(c_plugin_ui_header_);
 
-    setSize(800, 300);
+    setSize(PLUGIN_WIDTH, PLUGIN_HEIGHT);
 }
 
 ToNegativeHarmonyEditor::~ToNegativeHarmonyEditor()
