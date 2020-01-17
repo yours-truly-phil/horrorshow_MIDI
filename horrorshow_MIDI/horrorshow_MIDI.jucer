@@ -7,12 +7,11 @@
               pluginCharacteristicsValue="pluginIsMidiEffectPlugin,pluginProducesMidiOut,pluginWantsMidiIn"
               pluginDesc="The Input MIDI Notes get converted into their negative Harmnony Counterparts"
               pluginName="ToNegativeHarmony" pluginManufacturer="horrorshow.io"
-              pluginManufacturerCode="C137" pluginCode="HSNH" headerPath="C:\SDKs\asiosdk_2.3.3_2019-06-14\common;&#10;"
+              pluginManufacturerCode="C137" pluginCode="HSNH" headerPath="C:\SDKs\asiosdk_2.3.3_2019-06-14\common;&#10;../../modules/googletest/googletest/include;"
               pluginVSTCategory="kPlugCategEffect" pluginRTASCategory="32,64,8192"
               pluginVST3Category="Analyzer,Fx,Modulation" projectLineFeed="&#10;"
               pluginAAXCategory="32,64,8192" pluginAUMainType="'aumi'" cppLanguageStandard="17"
-              pluginChannelConfigs="{0,0},{1,1},{1,2},{2,2}" pluginVSTNumMidiOutputs="1"
-              pluginVSTNumMidiInputs="1">
+              pluginChannelConfigs="{0,0},{1,1},{1,2},{2,2}">
   <MAINGROUP id="GNaMjk" name="ToNegativeHarmony">
     <GROUP id="{772F881A-326D-64CD-7E44-12049FCDE93E}" name="Source">
       <FILE id="OAGFsx" name="MidiProcessorTest.cpp" compile="1" resource="0"
@@ -31,13 +30,15 @@
   </MAINGROUP>
   <EXPORTFORMATS>
     <VS2019 targetFolder="Builds/VisualStudio2019" windowsTargetPlatformVersion="10.0.18362.0"
-            IPPLibrary="true">
+            IPPLibrary="true" externalLibraries="gtest">
       <CONFIGURATIONS>
         <CONFIGURATION isDebug="1" name="Debug" enablePluginBinaryCopyStep="1" vst3BinaryLocation="G:\OneDrive\resources\audio\VST3\JUCE"
-                       targetName="ToNegativeHarmonyBinary" headerPath="C:\SDKs\asiosdk_2.3.3_2019-06-14\common;&#10;"/>
+                       targetName="ToNegativeHarmonyBinary" headerPath="C:\SDKs\asiosdk_2.3.3_2019-06-14\common;&#10;../../modules/googletest/googletest/include;"
+                       libraryPath="../../modules/googletest/googletest/include;"/>
         <CONFIGURATION isDebug="0" name="Release" targetName="ToNegativeHarmonyBinary"
                        vst3BinaryLocation="G:\OneDrive\resources\audio\VST3\JUCE" enablePluginBinaryCopyStep="1"
-                       headerPath="C:\SDKs\asiosdk_2.3.3_2019-06-14\common;&#10;"/>
+                       headerPath="C:\SDKs\asiosdk_2.3.3_2019-06-14\common;&#10;../../modules/googletest/googletest/include;"
+                       libraryPath="../../modules/googletest/googletest/include;"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_audio_basics" path="../../JUCE/modules"/>
@@ -55,11 +56,13 @@
         <MODULEPATH id="juce_audio_formats" path="../../JUCE/modules"/>
       </MODULEPATHS>
     </VS2019>
-    <LINUX_MAKE targetFolder="Builds/LinuxMakefile" enableGNUExtensions="1">
+    <LINUX_MAKE targetFolder="Builds/LinuxMakefile" enableGNUExtensions="1" externalLibraries="gtest">
       <CONFIGURATIONS>
-        <CONFIGURATION isDebug="1" name="Debug" linuxArchitecture="-m64" headerPath="&#10;"/>
+        <CONFIGURATION isDebug="1" name="Debug" linuxArchitecture="-m64" headerPath="../../modules/googletest/googletest/include;"
+                       libraryPath="../../modules/googletest/googletest/include;"/>
         <CONFIGURATION isDebug="0" name="Release" linkTimeOptimisation="1" optimisation="3"
-                       linuxArchitecture="-m64"/>
+                       linuxArchitecture="-m64" libraryPath="../../modules/googletest/googletest/include;"
+                       headerPath="../../modules/googletest/googletest/include;"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_gui_extra" path="../../JUCE/modules"/>
@@ -78,12 +81,14 @@
       </MODULEPATHS>
     </LINUX_MAKE>
     <CODEBLOCKS_WINDOWS targetFolder="Builds/CodeBlocksWindows" userNotes="Extra Compiler Flags was: -Wa,-mbig-obj"
-                        extraCompilerFlags="-Wa,-mbig-obj" enableGNUExtensions="1">
+                        extraCompilerFlags="-Wa,-mbig-obj" enableGNUExtensions="1" externalLibraries="gtest">
       <CONFIGURATIONS>
         <CONFIGURATION isDebug="1" name="Debug" windowsCodeBlocksArchitecture="-m64"
-                       headerPath="C:\SDKs\asiosdk_2.3.3_2019-06-14\common;&#10;"/>
+                       headerPath="C:\SDKs\asiosdk_2.3.3_2019-06-14\common;&#10;../../modules/googletest/googletest/include;"
+                       libraryPath="../../modules/googletest/googletest/include;"/>
         <CONFIGURATION isDebug="0" name="Release" linkTimeOptimisation="1" optimisation="3"
-                       windowsCodeBlocksArchitecture="-m64" headerPath="C:\SDKs\asiosdk_2.3.3_2019-06-14\common;&#10;"/>
+                       windowsCodeBlocksArchitecture="-m64" headerPath="C:\SDKs\asiosdk_2.3.3_2019-06-14\common;&#10;../../modules/googletest/googletest/include;"
+                       libraryPath="../../modules/googletest/googletest/include;"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_gui_extra" path="../../JUCE/modules"/>
@@ -137,8 +142,9 @@
     <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
   </MODULES>
   <LIVE_SETTINGS>
-    <WINDOWS buildEnabled="0" systemHeaderPath="C:\SDKs\asiosdk_2.3.3_2019-06-14\common;&#10;"
-             warningsEnabled="1" windowsTargetPlatformVersion="10.0.18362.0"/>
+    <WINDOWS buildEnabled="0" systemHeaderPath="C:\SDKs\asiosdk_2.3.3_2019-06-14\common;&#10;../../modules/googletest/googletest/include;"
+             warningsEnabled="1" windowsTargetPlatformVersion="10.0.18362.0"
+             extraDLLs="gtest" headerPath="../../modules/googletest/googletest/include;"/>
     <LINUX/>
   </LIVE_SETTINGS>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_ASIO="1" JUCE_WASAPI="1"
