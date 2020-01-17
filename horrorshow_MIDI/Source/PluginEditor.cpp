@@ -26,8 +26,10 @@ ToNegativeHarmonyEditor::ToNegativeHarmonyEditor(ToNegativeHarmonyProcessor& p, 
 
     addAndMakeVisible(c_power_on_button_);
     addAndMakeVisible(c_tonic_note_no_slider_);
-    //c_choice_box_.addItem("Choice 1", 1);
-    //c_choice_box_.addItem("Choice 2", 2);
+    
+    c_choice_box_.addItem("choice box addItem with id 2", 2);
+    c_choice_box_.addItem("choice box addItem with id 3", 3);
+    c_choice_box_.addItem("choice box addItem with id 4", 4);
     addAndMakeVisible(c_choice_box_);
 
     addAndMakeVisible(c_plugin_ui_header_);

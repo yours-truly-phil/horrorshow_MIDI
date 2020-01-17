@@ -3,7 +3,7 @@
 
     MidiProcessor.h
     Created: 27 Dec 2019 2:35:46pm
-    Author:  phili
+    Author: phili
 
   ==============================================================================
 */
@@ -16,14 +16,14 @@ class MidiProcessor : AudioProcessorValueTreeState::Listener
 {
 public:
   explicit MidiProcessor(AudioProcessorValueTreeState& vts);
-  ~MidiProcessor();
+  ~MidiProcessor() override;
 
-  void Process(MidiBuffer& midi_messages);
+  void processMidiMsgsBlock(MidiBuffer& midi_messages);
 
 private:
-  void parameterChanged (const String &parameterID, float newValue);
+  void parameterChanged (const String &parameter_id, float new_value) override;
 
-  int getNegHarmNN(int nn, int tonic);
+  int getNegHarmNn(int nn, int tonic);
 
   MidiBuffer p_midi_buffer_;
 

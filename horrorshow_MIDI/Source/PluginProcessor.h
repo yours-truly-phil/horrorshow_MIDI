@@ -72,7 +72,7 @@ private:
 
     MidiProcessor midi_processor_ {apvts_};
 
-    AudioProcessorValueTreeState::ParameterLayout create_parameters() const;
+    AudioProcessorValueTreeState::ParameterLayout createParameters() const;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ToNegativeHarmonyProcessor)
 };
