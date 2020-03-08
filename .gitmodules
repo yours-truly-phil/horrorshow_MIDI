@@ -1,3 +1,5 @@
 [submodule "horrorshow_MIDI/modules/googletest"]
 	path = horrorshow_MIDI/modules/googletest
 	url = https://github.com/google/googletest
+	update = merge # customized setting
+
