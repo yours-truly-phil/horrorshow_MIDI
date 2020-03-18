@@ -14,8 +14,6 @@
               userNotes="Used to be target version (Win) 10.0.18362.0&#10;but I installed the current default 10.0.16299.0 because I see currently no reason to enforce the later target version&#10;beta is 10.0.19041.0&#10;&#10;removed Header Search Paths from Global Project Settings (this form)&#10;C:\SDKs\asiosdk_2.3.3_2019-06-14\common;&#10;..\..\modules\googletest\googletest\include;&#10;&#10;and added it to the individual exporteres">
   <MAINGROUP id="GNaMjk" name="ToNegativeHarmony">
     <GROUP id="{772F881A-326D-64CD-7E44-12049FCDE93E}" name="Source">
-      <FILE id="OAGFsx" name="MidiProcessorTest.cpp" compile="1" resource="0"
-            file="Source/MidiProcessorTest.cpp"/>
       <FILE id="ZJ6jE8" name="MidiProcessor.cpp" compile="1" resource="0"
             file="Source/MidiProcessor.cpp"/>
       <FILE id="KpMX36" name="MidiProcessor.h" compile="0" resource="0" file="Source/MidiProcessor.h"/>
@@ -32,10 +30,11 @@
     <VS2019 targetFolder="Builds/VisualStudio2019" IPPLibrary="true" userNotes="orig target: 10.0.18362.0&#10;beta: 10.0.19041.0&#10;default: 10.0.16299.0">
       <CONFIGURATIONS>
         <CONFIGURATION isDebug="1" name="Debug" enablePluginBinaryCopyStep="1" vst3BinaryLocation="G:\OneDrive\resources\audio\VST3\JUCE"
-                       targetName="ToNegativeHarmonyBinary" headerPath="C:\SDKs\asiosdk_2.3.3_2019-06-14\common;&#10;..\..\modules\googletest\googletest\include;"/>
+                       targetName="ToNegativeHarmonyBinary" headerPath="C:\SDKs\asiosdk_2.3.3_2019-06-14\common;"
+                       userNotes="removed from header: ..\..\modules\googletest\googletest\include;"/>
         <CONFIGURATION isDebug="0" name="Release" targetName="ToNegativeHarmonyBinary"
                        vst3BinaryLocation="G:\OneDrive\resources\audio\VST3\JUCE" enablePluginBinaryCopyStep="1"
-                       headerPath="C:\SDKs\asiosdk_2.3.3_2019-06-14\common;&#10;..\..\modules\googletest\googletest\include;"/>
+                       headerPath="C:\SDKs\asiosdk_2.3.3_2019-06-14\common;" userNotes="removed from header: ..\..\modules\googletest\googletest\include;"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_audio_basics" path="../../JUCE/modules"/>
@@ -56,10 +55,11 @@
                         extraCompilerFlags="-Wa,-mbig-obj" enableGNUExtensions="1">
       <CONFIGURATIONS>
         <CONFIGURATION isDebug="1" name="Debug" windowsCodeBlocksArchitecture="-m64"
-                       headerPath="C:\SDKs\asiosdk_2.3.3_2019-06-14\common;&#10;..\..\modules\googletest\googletest\include;"
-                       recommendedWarnings="GCC"/>
+                       headerPath="C:\SDKs\asiosdk_2.3.3_2019-06-14\common;" recommendedWarnings="GCC"
+                       userNotes="removed from header: ..\..\modules\googletest\googletest\include;"/>
         <CONFIGURATION isDebug="0" name="Release" linkTimeOptimisation="1" optimisation="3"
-                       windowsCodeBlocksArchitecture="-m64" headerPath="C:\SDKs\asiosdk_2.3.3_2019-06-14\common;&#10;..\..\modules\googletest\googletest\include;"/>
+                       windowsCodeBlocksArchitecture="-m64" headerPath="C:\SDKs\asiosdk_2.3.3_2019-06-14\common;"
+                       userNotes="removed from header: ..\..\modules\googletest\googletest\include;"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_gui_extra" path="../../JUCE/modules"/>
@@ -110,7 +110,7 @@
     <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
   </MODULES>
   <LIVE_SETTINGS>
-    <WINDOWS buildEnabled="0" warningsEnabled="1" headerPath="C:\SDKs\asiosdk_2.3.3_2019-06-14\common;&#10;..\..\modules\googletest\googletest\include;"/>
+    <WINDOWS buildEnabled="0" warningsEnabled="1" headerPath="C:\SDKs\asiosdk_2.3.3_2019-06-14\common;"/>
     <LINUX/>
   </LIVE_SETTINGS>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_ASIO="1" JUCE_WASAPI="1"
