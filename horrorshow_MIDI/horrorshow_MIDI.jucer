@@ -7,11 +7,11 @@
               pluginCharacteristicsValue="pluginIsMidiEffectPlugin,pluginProducesMidiOut,pluginWantsMidiIn"
               pluginDesc="The Input MIDI Notes get converted into their negative Harmnony Counterparts"
               pluginName="ToNegativeHarmony" pluginManufacturer="horrorshow.io"
-              pluginManufacturerCode="C137" pluginCode="HSNH" headerPath="C:\SDKs\asiosdk_2.3.3_2019-06-14\common;&#10;..\..\modules\googletest\googletest\include;"
-              pluginVSTCategory="kPlugCategEffect" pluginRTASCategory="32,64,8192"
-              pluginVST3Category="Analyzer,Fx,Modulation" projectLineFeed="&#10;"
-              pluginAAXCategory="32,64,8192" pluginAUMainType="'aumi'" cppLanguageStandard="17"
-              pluginChannelConfigs="{0,0},{1,1},{1,2},{2,2}">
+              pluginManufacturerCode="C137" pluginCode="HSNH" pluginVSTCategory="kPlugCategEffect"
+              pluginRTASCategory="32,64,8192" pluginVST3Category="Analyzer,Fx,Modulation"
+              projectLineFeed="&#10;" pluginAAXCategory="32,64,8192" pluginAUMainType="'aumi'"
+              cppLanguageStandard="17" pluginChannelConfigs="{0,0},{1,1},{1,2},{2,2}"
+              userNotes="Used to be target version (Win) 10.0.18362.0&#10;but I installed the current default 10.0.16299.0 because I see currently no reason to enforce the later target version&#10;beta is 10.0.19041.0&#10;&#10;removed Header Search Paths from Global Project Settings (this form)&#10;C:\SDKs\asiosdk_2.3.3_2019-06-14\common;&#10;..\..\modules\googletest\googletest\include;&#10;&#10;and added it to the individual exporteres">
   <MAINGROUP id="GNaMjk" name="ToNegativeHarmony">
     <GROUP id="{772F881A-326D-64CD-7E44-12049FCDE93E}" name="Source">
       <FILE id="OAGFsx" name="MidiProcessorTest.cpp" compile="1" resource="0"
@@ -29,14 +29,13 @@
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>
-    <VS2019 targetFolder="Builds/VisualStudio2019" windowsTargetPlatformVersion="10.0.18362.0"
-            IPPLibrary="true" userNotes="External Libraries to Link maybe add 'gtest'">
+    <VS2019 targetFolder="Builds/VisualStudio2019" IPPLibrary="true" userNotes="orig target: 10.0.18362.0&#10;beta: 10.0.19041.0&#10;default: 10.0.16299.0">
       <CONFIGURATIONS>
         <CONFIGURATION isDebug="1" name="Debug" enablePluginBinaryCopyStep="1" vst3BinaryLocation="G:\OneDrive\resources\audio\VST3\JUCE"
-                       targetName="ToNegativeHarmonyBinary" userNotes="Extra Library Search Path maybe also add:&#10;..\..\modules\googletest\googletest\include\gtest;&#10;../../modules/googletest/googletest/include/gtest;&#10;&#10;Header Search Paths:&#10;C:\SDKs\asiosdk_2.3.3_2019-06-14\common;&#10;..\..\modules\googletest\googletest\include\gtest;"/>
+                       targetName="ToNegativeHarmonyBinary" headerPath="C:\SDKs\asiosdk_2.3.3_2019-06-14\common;&#10;..\..\modules\googletest\googletest\include;"/>
         <CONFIGURATION isDebug="0" name="Release" targetName="ToNegativeHarmonyBinary"
                        vst3BinaryLocation="G:\OneDrive\resources\audio\VST3\JUCE" enablePluginBinaryCopyStep="1"
-                       userNotes="Extra Library Search Path maybe also add:&#10;..\..\modules\googletest\googletest\include\gtest;&#10;&#10;Header Search Paths:&#10;C:\SDKs\asiosdk_2.3.3_2019-06-14\common;&#10;..\..\modules\googletest\googletest\include\gtest;"/>
+                       headerPath="C:\SDKs\asiosdk_2.3.3_2019-06-14\common;&#10;..\..\modules\googletest\googletest\include;"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_audio_basics" path="../../JUCE/modules"/>
@@ -45,7 +44,6 @@
         <MODULEPATH id="juce_audio_processors" path="../../JUCE/modules"/>
         <MODULEPATH id="juce_audio_utils" path="../../JUCE/modules"/>
         <MODULEPATH id="juce_core" path="../../JUCE/modules"/>
-        <MODULEPATH id="juce_cryptography" path="../../JUCE/modules"/>
         <MODULEPATH id="juce_data_structures" path="../../JUCE/modules"/>
         <MODULEPATH id="juce_events" path="../../JUCE/modules"/>
         <MODULEPATH id="juce_graphics" path="../../JUCE/modules"/>
@@ -54,35 +52,14 @@
         <MODULEPATH id="juce_audio_formats" path="../../JUCE/modules"/>
       </MODULEPATHS>
     </VS2019>
-    <LINUX_MAKE targetFolder="Builds/LinuxMakefile" enableGNUExtensions="1" userNotes="External Libraries to Link maybe add 'gtest'">
-      <CONFIGURATIONS>
-        <CONFIGURATION isDebug="1" name="Debug" linuxArchitecture="-m64" userNotes="Extra Library Search Path maybe also add:&#10;../../modules/googletest/googletest/include/gtest;&#10;&#10;Header Search Path:&#10;../../modules/googletest/googletest/include/gtest;"/>
-        <CONFIGURATION isDebug="0" name="Release" linkTimeOptimisation="1" optimisation="3"
-                       linuxArchitecture="-m64" userNotes="Extra Library Search Path maybe also add:&#10;../../modules/googletest/googletest/include/gtest;&#10;&#10;Header Search Path:&#10;../../modules/googletest/googletest/include/gtest;"/>
-      </CONFIGURATIONS>
-      <MODULEPATHS>
-        <MODULEPATH id="juce_gui_extra" path="../../JUCE/modules"/>
-        <MODULEPATH id="juce_gui_basics" path="../../JUCE/modules"/>
-        <MODULEPATH id="juce_graphics" path="../../JUCE/modules"/>
-        <MODULEPATH id="juce_events" path="../../JUCE/modules"/>
-        <MODULEPATH id="juce_data_structures" path="../../JUCE/modules"/>
-        <MODULEPATH id="juce_cryptography" path="../../JUCE/modules"/>
-        <MODULEPATH id="juce_core" path="../../JUCE/modules"/>
-        <MODULEPATH id="juce_audio_utils" path="../../JUCE/modules"/>
-        <MODULEPATH id="juce_audio_processors" path="../../JUCE/modules"/>
-        <MODULEPATH id="juce_audio_plugin_client" path="../../JUCE/modules"/>
-        <MODULEPATH id="juce_audio_devices" path="../../JUCE/modules"/>
-        <MODULEPATH id="juce_audio_basics" path="../../JUCE/modules"/>
-        <MODULEPATH id="juce_audio_formats" path="../../JUCE/modules"/>
-      </MODULEPATHS>
-    </LINUX_MAKE>
-    <CODEBLOCKS_WINDOWS targetFolder="Builds/CodeBlocksWindows" userNotes="Extra Compiler Flags was: -Wa,-mbig-obj&#10;&#10;External Libraries to Link maybe add 'gtest'"
-                        extraCompilerFlags="-Wa,-mbig-obj">
+    <CODEBLOCKS_WINDOWS targetFolder="Builds/CodeBlocksWindows" userNotes="Extra Compiler Flags was: -Wa,-mbig-obj"
+                        extraCompilerFlags="-Wa,-mbig-obj" enableGNUExtensions="1">
       <CONFIGURATIONS>
         <CONFIGURATION isDebug="1" name="Debug" windowsCodeBlocksArchitecture="-m64"
-                       userNotes="Extra Library Search Path maybe also add:&#10;..\..\modules\googletest\googletest\include\gtest;&#10;&#10;Header Search Paths:&#10;C:\SDKs\asiosdk_2.3.3_2019-06-14\common;&#10;..\..\modules\googletest\googletest\include\gtest;"/>
+                       headerPath="C:\SDKs\asiosdk_2.3.3_2019-06-14\common;&#10;..\..\modules\googletest\googletest\include;"
+                       recommendedWarnings="GCC"/>
         <CONFIGURATION isDebug="0" name="Release" linkTimeOptimisation="1" optimisation="3"
-                       windowsCodeBlocksArchitecture="-m64" userNotes="Extra Library Search Path maybe also add:&#10;..\..\modules\googletest\googletest\include\gtest;&#10;&#10;Header Search Paths:&#10;C:\SDKs\asiosdk_2.3.3_2019-06-14\common;&#10;..\..\modules\googletest\googletest\include\gtest;"/>
+                       windowsCodeBlocksArchitecture="-m64" headerPath="C:\SDKs\asiosdk_2.3.3_2019-06-14\common;&#10;..\..\modules\googletest\googletest\include;"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_gui_extra" path="../../JUCE/modules"/>
@@ -90,7 +67,6 @@
         <MODULEPATH id="juce_graphics" path="../../JUCE/modules"/>
         <MODULEPATH id="juce_events" path="../../JUCE/modules"/>
         <MODULEPATH id="juce_data_structures" path="../../JUCE/modules"/>
-        <MODULEPATH id="juce_cryptography" path="../../JUCE/modules"/>
         <MODULEPATH id="juce_core" path="../../JUCE/modules"/>
         <MODULEPATH id="juce_audio_utils" path="../../JUCE/modules"/>
         <MODULEPATH id="juce_audio_processors" path="../../JUCE/modules"/>
@@ -101,14 +77,13 @@
       </MODULEPATHS>
     </CODEBLOCKS_WINDOWS>
     <CLION targetFolder="Builds/CLion" clionMakefileEnabled="1" clionCodeBlocksEnabled="1"
-           clionXcodeEnabled="1" userNotes="Exporter Clion in Projucer selected, it opened the project successfully und was able to Build the Project and also Debug the Components.&#10;&#10;Very unexpected, ... damn, that never happens with a deadline. Everything in default directory with latest versions as of 12/03/19 -&gt;  C:\Program Files\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64\.. ) and CLion is version 2019.3 at the point of writing this.">
+           clionXcodeEnabled="1">
       <MODULEPATHS>
         <MODULEPATH id="juce_gui_extra" path="../../JUCE/modules"/>
         <MODULEPATH id="juce_gui_basics" path="../../JUCE/modules"/>
         <MODULEPATH id="juce_graphics" path="../../JUCE/modules"/>
         <MODULEPATH id="juce_events" path="../../JUCE/modules"/>
         <MODULEPATH id="juce_data_structures" path="../../JUCE/modules"/>
-        <MODULEPATH id="juce_cryptography" path="../../JUCE/modules"/>
         <MODULEPATH id="juce_core" path="../../JUCE/modules"/>
         <MODULEPATH id="juce_audio_utils" path="../../JUCE/modules"/>
         <MODULEPATH id="juce_audio_processors" path="../../JUCE/modules"/>
@@ -128,7 +103,6 @@
     <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
-    <MODULE id="juce_cryptography" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
@@ -136,8 +110,7 @@
     <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
   </MODULES>
   <LIVE_SETTINGS>
-    <WINDOWS buildEnabled="0" systemHeaderPath="C:\SDKs\asiosdk_2.3.3_2019-06-14\common;&#10;..\..\modules\googletest\googletest\include;&#10;"
-             warningsEnabled="1" windowsTargetPlatformVersion="10.0.18362.0"/>
+    <WINDOWS buildEnabled="0" warningsEnabled="1" headerPath="C:\SDKs\asiosdk_2.3.3_2019-06-14\common;&#10;..\..\modules\googletest\googletest\include;"/>
     <LINUX/>
   </LIVE_SETTINGS>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_ASIO="1" JUCE_WASAPI="1"
