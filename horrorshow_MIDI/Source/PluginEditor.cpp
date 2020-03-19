@@ -17,23 +17,24 @@ ToNegativeHarmonyEditor::ToNegativeHarmonyEditor(ToNegativeHarmonyProcessor& p, 
     : AudioProcessorEditor(&p), processor_(p), apvts_(vts)
 {
     state_midi_keyboard_.addListener(this);
+    
+    c_power_on_button_attachment_ = std::make_unique<ButtonAttachment>(apvts_, kIdIsProcessingActive, c_power_on_button_);
+    c_tonic_note_no_slider_attachment_ = std::make_unique<SliderAttachment>(apvts_, kIdTonicNn, c_tonic_note_no_slider_);
+    c_choice_box_attachment_ = std::make_unique<ComboBoxAttachment>(apvts_, kIdIsProcessingActive, c_choice_box_);
+
     addAndMakeVisible(c_midi_keyboard_);
 
-
     addAndMakeVisible(c_power_on_button_);
-    c_power_on_button_attachment_ = std::make_unique<ButtonAttachment>(apvts_, kIdIsProcessingActive, c_power_on_button_);
-
     addAndMakeVisible(c_tonic_note_no_slider_);
-    c_tonic_note_no_slider_attachment_ = std::make_unique<SliderAttachment>(apvts_, kIdTonicNn, c_tonic_note_no_slider_);
-
-    c_choice_box_.addItem("Choice 1", 1);
-    c_choice_box_.addItem("Choice 2", 2);
+    
+    c_choice_box_.addItem("choice box addItem with id 2", 2);
+    c_choice_box_.addItem("choice box addItem with id 3", 3);
+    c_choice_box_.addItem("choice box addItem with id 4", 4);
     addAndMakeVisible(c_choice_box_);
-    c_choice_box_attachment_ = std::make_unique<ComboBoxAttachment>(apvts_, kIdIsProcessingActive, c_choice_box_);
 
     addAndMakeVisible(c_plugin_ui_header_);
 
-    setSize(800, 300);
+    setSize(PLUGIN_WIDTH, PLUGIN_HEIGHT);
 }
 
 ToNegativeHarmonyEditor::~ToNegativeHarmonyEditor()

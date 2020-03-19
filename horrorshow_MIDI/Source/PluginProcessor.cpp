@@ -13,9 +13,9 @@
 #include "PluginEditor.h"
 
 //==============================================================================
-ToNegativeHarmonyProcessor::ToNegativeHarmonyProcessor()
+ToNegativeHarmonyProcessor::ToNegativeHarmonyProcessor() :
 #ifndef JucePlugin_PreferredChannelConfigurations
-    : AudioProcessor(BusesProperties()
+     AudioProcessor(BusesProperties()
     #if ! JucePlugin_IsMidiEffect
     #if ! JucePlugin_IsSynth
         .withInput("Input", AudioChannelSet::stereo(), true)
@@ -23,13 +23,10 @@ ToNegativeHarmonyProcessor::ToNegativeHarmonyProcessor()
         .withOutput("Output", AudioChannelSet::stereo(), true)
     #endif
     ),
-#else
-    :
 #endif
-apvts_(*this, nullptr, "PARAMETERS", create_parameters())//, midi_processor_(apvts_)
+apvts_(*this, nullptr, "PARAMETERS",
+             createParameters())//, midi_processor_(apvts_)
 {
-    is_on_ = apvts_.getRawParameterValue(kIdIsProcessingActive);
-    cur_tonic_ = apvts_.getRawParameterValue(kIdTonicNn);
 }
 
 ToNegativeHarmonyProcessor::~ToNegativeHarmonyProcessor()
@@ -101,7 +98,7 @@ void ToNegativeHarmonyProcessor::changeProgramName(int index, const String & new
 void ToNegativeHarmonyProcessor::prepareToPlay(double sample_rate, int samples_per_block)
 {
     // Use this method as the place to do any pre-playback
-    // initialization that you need..
+    // initialization that you need.
 }
 
 void ToNegativeHarmonyProcessor::releaseResources()
@@ -115,9 +112,9 @@ bool ToNegativeHarmonyProcessor::isBusesLayoutSupported(const BusesLayout & layo
 {
 #if JucePlugin_IsMidiEffect
     ignoreUnused(layouts);
-    return true;
+    return true; // TODO: since this is at heart a MIDI effect, at first glance it looks like sth looked at long enough
 #else
-    // This is the place where you check if the layout is supported.
+    // Validate the bus layout here.
         // In this template code we only support mono or stereo.
     if (layouts.getMainOutputChannelSet() != AudioChannelSet::mono()
         && layouts.getMainOutputChannelSet() != AudioChannelSet::stereo())
@@ -128,7 +125,6 @@ bool ToNegativeHarmonyProcessor::isBusesLayoutSupported(const BusesLayout & layo
     if (layouts.getMainOutputChannelSet() != layouts.getMainInputChannelSet())
         return false;
 #endif
-
     return true;
 #endif
 }
@@ -137,8 +133,8 @@ bool ToNegativeHarmonyProcessor::isBusesLayoutSupported(const BusesLayout & layo
 void ToNegativeHarmonyProcessor::processBlock(AudioBuffer<float> & buffer, MidiBuffer & midi_messages)
 {
     ScopedNoDenormals no_denormals;
-    const auto total_num_input_channels = getTotalNumInputChannels();
-    const auto total_num_output_channels = getTotalNumOutputChannels();
+    const auto kTotalNumInputChannels = getTotalNumInputChannels();
+    const auto kTotalNumOutputChannels = getTotalNumOutputChannels();
 
     // In case we have more outputs than inputs, this code clears any output
     // channels that didn't contain input data, (because these aren't
@@ -146,23 +142,23 @@ void ToNegativeHarmonyProcessor::processBlock(AudioBuffer<float> & buffer, MidiB
     // This is here to avoid people getting screaming feedback
     // when they first compile a plugin, but obviously you don't need to keep
     // this code if your algorithm always overwrites all the output channels.
-    for (auto i = total_num_input_channels; i < total_num_output_channels; ++i)
+    for (auto i = kTotalNumInputChannels; i < kTotalNumOutputChannels; ++i)
         buffer.clear(i, 0, buffer.getNumSamples());
 
     // This is the place where you'd normally do the guts of your plugin's
     // audio processing...
     // Make sure to reset the state if your inner loop is processing
     // the samples and the outer loop is handling the channels.
-    // Alternatively, you can process the samples with the channels
+    // Alternatively, you can Process the samples with the channels
     // interleaved by keeping the same state.
     //for (auto channel = 0; channel < totalNumInputChannels; ++channel)
     //{
     //    auto* channelData = buffer.getWritePointer(channel);
 
-    //    // ..do something to the data...
+    //    // -> do something to the data...
     //}
 
-    midi_processor_.process(midi_messages);
+    midi_processor_.processMidiMsgsBlock(midi_messages);
 }
 
 //==============================================================================
@@ -182,32 +178,30 @@ void ToNegativeHarmonyProcessor::getStateInformation(MemoryBlock & dest_data)
     // You should use this method to store your parameters in the memory block.
     // You could do that either as raw data, or use the XML or ValueTree classes
     // as intermediaries to make it easy to save and load complex data.
-
-    const auto state = apvts_.copyState();
-    const auto xml(state.createXml());
-    copyXmlToBinary(*xml, dest_data);
+    const auto kState = apvts_.copyState();
+    const auto kXml(kState.createXml());
+    copyXmlToBinary(*kXml, dest_data);
 }
 
 void ToNegativeHarmonyProcessor::setStateInformation(const void* data, int size_in_bytes)
 {
-    // You should use this method to restore your parameters from this memory block,
-    // whose contents will have been created by the getStateInformation() call.
+    // You should use this method to restore your parameters from this memory block.
+    // getStateInformation() creates its content.
+    const auto kXmlState(getXmlFromBinary(data, size_in_bytes));
 
-    const auto xml_state(getXmlFromBinary(data, size_in_bytes));
-
-    if (xml_state != nullptr && xml_state->hasTagName(apvts_.state.getType()))
-        apvts_.replaceState(ValueTree::fromXml(*xml_state));
+    if (kXmlState != nullptr && kXmlState->hasTagName(apvts_.state.getType()))
+        apvts_.replaceState(ValueTree::fromXml(*kXmlState));
 }
 
 //==============================================================================
-// This creates new instances of the plugin..
+// This creates new instances of the plugin (One at a time though, no? y the plural?
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
     return new ToNegativeHarmonyProcessor();
 }
 
 
-AudioProcessorValueTreeState::ParameterLayout ToNegativeHarmonyProcessor::create_parameters() const
+AudioProcessorValueTreeState::ParameterLayout ToNegativeHarmonyProcessor::createParameters() const
 {
     std::vector<std::unique_ptr<RangedAudioParameter>> params;
 
@@ -222,17 +216,3 @@ AudioProcessorValueTreeState::ParameterLayout ToNegativeHarmonyProcessor::create
 
     return { params.begin(), params.end() };
 }
-
-
-/*
- *
- *AudioProcessorValueTreeState::ParameterLayout createParameterLayout()
-{
-    std::vector<std::unique_ptr<AudioParameterInt>> params;
- 
-    for (int i = 1; i < 9; ++i)
-        params.push_back (std::make_unique<AudioParameterInt> (String (i), String (i), 0, i, 0));
- 
-    return { params.begin(), params.end() };
-}
- */

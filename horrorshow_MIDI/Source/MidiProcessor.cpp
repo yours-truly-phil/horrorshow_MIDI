@@ -3,44 +3,70 @@
 
     MidiProcessor.cpp
     Created: 2 Jan 2020 3:33:19pm
-    Author:  phili
+    Author: phili
 
   ==============================================================================
 */
 
 #include "MidiProcessor.h"
+#include <cfloat>
 
 #include "PluginProcessor.h"
 
 MidiProcessor::MidiProcessor(AudioProcessorValueTreeState& vts) : apvts_(vts)
 {
-  p_nn_up_bound_ = apvts_.getRawParameterValue(kIdMaxMidiNoteNumber);
-  p_nn_low_bound_ = apvts_.getRawParameterValue(kIdMinMidiNoteNumber);
-  //p_nn_bounds_ = {p_nn_low_bound_,p_nn_up_bound_};
+  is_on_ = apvts_.getRawParameterValue(kIdIsProcessingActive);
+  cur_tonic_ = apvts_.getRawParameterValue(kIdTonicNn);
+
+  apvts_.addParameterListener(kIdIsProcessingActive, this);
+  apvts_.addParameterListener(kIdTonicNn, this);
+
+  state_changed_ = true;
 }
 
 MidiProcessor::~MidiProcessor()
 = default;
 
-
-void MidiProcessor::process(MidiBuffer& midi_messages)
+void MidiProcessor::processMidiMsgsBlock(MidiBuffer& midi_messages)
 {
   p_midi_buffer_.clear();
 
   MidiBuffer::Iterator it(midi_messages);
-  MidiMessage current_message;
+  MidiMessage cur_msg;
   int sample_pos;
 
-  while (it.getNextEvent(current_message, sample_pos))
+  while (it.getNextEvent(cur_msg, sample_pos))
   {
-    if (current_message.isNoteOnOrOff())
+    if (cur_msg.isNoteOnOrOff())
     {
-      auto nn = current_message.getNoteNumber();
-      nn = nn + (60 - nn) * 2;
-      current_message.setNoteNumber(nn);
-      //current_message = transform(current_message.getNoteNumber()*, -20);
+      if(state_changed_) {
+        p_midi_buffer_.addEvent(MidiMessage::allNotesOff(cur_msg.getChannel()), sample_pos);
+        DBG("AllNotesOff Event added to buffer because of change. Channel: " << cur_msg.getChannel() << " sample_pos: " << sample_pos);
+        state_changed_ = false;
+      }
+      if(*is_on_ > FLT_MIN)
+      {
+        auto orig_nn = cur_msg.getNoteNumber();
+        auto new_nn = getNegHarmNn(orig_nn, (int)*cur_tonic_);
+        DBG("Transformed [" << orig_nn << "] " << MidiMessage::getMidiNoteName(orig_nn, true, true, 3) <<
+                              " to [" << new_nn << "] " << MidiMessage::getMidiNoteName(new_nn, true, true, 3));
+        cur_msg.setNoteNumber(new_nn);
+      }
     }
-    p_midi_buffer_.addEvent(current_message, sample_pos);
+    p_midi_buffer_.addEvent(cur_msg, sample_pos);
   }
   midi_messages.swapWith(p_midi_buffer_);
+}
+
+void MidiProcessor::parameterChanged(const String &parameter_id, float new_value)
+{
+    DBG("parameterChanged Event: - parameter_id: " << parameter_id
+                                                << " new_value: " << new_value);
+    state_changed_ = true;
+}
+
+int MidiProcessor::getNegHarmNn(int nn, int tonic)
+{
+  DBG("getNegHarmNn called, nn: " << nn << " tonic: " << tonic);
+  return 2*tonic + 7 - nn;
 }

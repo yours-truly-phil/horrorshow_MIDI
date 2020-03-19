@@ -12,7 +12,7 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "atomic"
+
 #include "MidiProcessor.h"
 
 constexpr auto kIdTonicNn               = "id_tonic_nn";
@@ -31,7 +31,7 @@ class ToNegativeHarmonyProcessor : public AudioProcessor
 public:
     //==============================================================================
     ToNegativeHarmonyProcessor();
-    ~ToNegativeHarmonyProcessor();
+    ~ToNegativeHarmonyProcessor() override;
 
     //==============================================================================
     void prepareToPlay(double sample_rate, int samples_per_block) override;
@@ -72,10 +72,7 @@ private:
 
     MidiProcessor midi_processor_ {apvts_};
 
-    std::atomic<float>* is_on_;
-    std::atomic<float>* cur_tonic_;
-
-    AudioProcessorValueTreeState::ParameterLayout create_parameters() const;
+    AudioProcessorValueTreeState::ParameterLayout createParameters() const;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ToNegativeHarmonyProcessor)
 };
