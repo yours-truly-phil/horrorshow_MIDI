@@ -23,14 +23,15 @@ public:
 private:
   void parameterChanged (const String &parameter_id, float new_value) override;
 
-  int getNegHarmNn(int nn, int tonic);
+  int getNegHarmNn(int nn);
 
   MidiBuffer p_midi_buffer_;
 
   AudioProcessorValueTreeState& apvts_;
 
   std::atomic<float>* is_on_;
-  std::atomic<float>* cur_tonic_;
+  std::atomic<float>* cur_key_;
+//  std::atomic<float>* cur_tonic_;
 
   bool state_changed_;
 

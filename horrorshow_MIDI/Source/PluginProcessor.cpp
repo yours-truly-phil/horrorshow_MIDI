@@ -207,7 +207,10 @@ AudioProcessorValueTreeState::ParameterLayout ToNegativeHarmonyProcessor::create
 
     params.push_back(std::make_unique<AudioParameterBool>(kIdIsProcessingActive, "is processing active", false));
 
-    params.push_back(std::make_unique<AudioParameterInt>(kIdTonicNn, "Note number of active tonic", 0, 127, 60, "Note Number active tonic Label text"));
+    // gets replaced bei picking a key
+//    params.push_back(std::make_unique<AudioParameterInt>(kIdTonicNn, "Note number of active tonic", 0, 127, 60, "Note Number active tonic Label text"));
+
+    params.push_back(std::make_unique<AudioParameterChoice>(kIdKey, "Key", kKeySignatures, 0));
 
     params.push_back(std::make_unique<AudioParameterInt>(kIdMinMidiNoteNumber, "Smallest Midi Note Number", 0, 127, 24));
     params.push_back(std::make_unique<AudioParameterInt>(kIdMaxMidiNoteNumber, "Largest Midi Note Number", 0, 127, 127));

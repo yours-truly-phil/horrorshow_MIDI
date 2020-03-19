@@ -15,7 +15,15 @@
 
 #include "MidiProcessor.h"
 
-constexpr auto kIdTonicNn               = "id_tonic_nn";
+const StringArray kKeySignatures {"C", "am", "G", "em", "D",
+                                  "bm", "A", "f#m", "E", "c#m",
+                                  "B", "g#m", "F#", "Gb", "d#m",
+                                  "ebm", "Db", "bbm", "Ab", "fm",
+                                  "Eb", "cm", "Bb", "gm", "F", "dm" };
+
+
+//constexpr auto kIdTonicNn               = "id_tonic_nn";
+constexpr auto kIdKey                   = "id_key";
 constexpr auto kIdIsProcessingActive    = "id_is_processing_active";
 
 constexpr auto kIdMinMidiNoteNumber     = "id_min_midi_note_number";

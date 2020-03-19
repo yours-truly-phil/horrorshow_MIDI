@@ -16,10 +16,12 @@
 MidiProcessor::MidiProcessor(AudioProcessorValueTreeState& vts) : apvts_(vts)
 {
   is_on_ = apvts_.getRawParameterValue(kIdIsProcessingActive);
-  cur_tonic_ = apvts_.getRawParameterValue(kIdTonicNn);
+//  cur_tonic_ = apvts_.getRawParameterValue(kIdTonicNn);
+    cur_key_ = apvts_.getRawParameterValue(kIdKey);
 
   apvts_.addParameterListener(kIdIsProcessingActive, this);
-  apvts_.addParameterListener(kIdTonicNn, this);
+//  apvts_.addParameterListener(kIdTonicNn, this);
+    apvts_.addParameterListener(kIdKey, this);
 
   state_changed_ = true;
 }
@@ -47,7 +49,7 @@ void MidiProcessor::processMidiMsgsBlock(MidiBuffer& midi_messages)
       if(*is_on_ > FLT_MIN)
       {
         auto orig_nn = cur_msg.getNoteNumber();
-        auto new_nn = getNegHarmNn(orig_nn, (int)*cur_tonic_);
+        auto new_nn = getNegHarmNn(orig_nn);
         DBG("Transformed [" << orig_nn << "] " << MidiMessage::getMidiNoteName(orig_nn, true, true, 3) <<
                               " to [" << new_nn << "] " << MidiMessage::getMidiNoteName(new_nn, true, true, 3));
         cur_msg.setNoteNumber(new_nn);
@@ -65,8 +67,9 @@ void MidiProcessor::parameterChanged(const String &parameter_id, float new_value
     state_changed_ = true;
 }
 
-int MidiProcessor::getNegHarmNn(int nn, int tonic)
+int MidiProcessor::getNegHarmNn(int nn)
 {
-  DBG("getNegHarmNn called, nn: " << nn << " tonic: " << tonic);
-  return 2*tonic + 7 - nn;
+  DBG("getNegHarmNn called, nn: " << nn << " key: " << *cur_key_);
+  return nn;
+//  return 2*tonic + 7 - nn;
 }

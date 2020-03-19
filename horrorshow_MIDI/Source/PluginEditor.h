@@ -45,7 +45,7 @@ private:
     MidiKeyboardComponent   c_midi_keyboard_        {state_midi_keyboard_, MidiKeyboardComponent::horizontalKeyboard};
     ToggleButton            c_power_on_button_      {"to negative Harmony"};
     Slider                  c_tonic_note_no_slider_ { Slider::SliderStyle::LinearHorizontal, Slider::TextEntryBoxPosition::TextBoxBelow };
-    ComboBox                c_choice_box_           {"plugin_states_choice_box"};
+    ComboBox                c_choice_box_           {"key_choice_box"};
     Label                   c_plugin_ui_header_     { "label_plugin_header", processor_.getName() };
 
     std::unique_ptr<ButtonAttachment>   c_power_on_button_attachment_;
