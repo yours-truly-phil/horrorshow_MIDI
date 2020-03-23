@@ -15,11 +15,13 @@
 
 #include "MidiProcessor.h"
 
-const StringArray kKeySignatures {"C", "am", "G", "em", "D",
-                                  "bm", "A", "f#m", "E", "c#m",
-                                  "B", "g#m", "F#", "Gb", "d#m",
-                                  "ebm", "Db", "bbm", "Ab", "fm",
-                                  "Eb", "cm", "Bb", "gm", "F", "dm" };
+// TODO Format der "LookupTabelle" aufbügeln, mindestens wie in MidiMesssage von JUCE die ganzen Banks und Instr
+const StringArray kKeySignatures {
+    "C & am", "G & em", "D & bm",
+    "A & f#", "E & c#", "B & g#",
+    "F# & Gb & d# & eb",
+    "Db & bb", "Ab & f", "Eb & c",
+    "Bb & g", "F & d" };
 
 
 //constexpr auto kIdTonicNn               = "id_tonic_nn";

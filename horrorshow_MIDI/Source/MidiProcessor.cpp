@@ -70,6 +70,8 @@ void MidiProcessor::parameterChanged(const String &parameter_id, float new_value
 int MidiProcessor::getNegHarmNn(int nn)
 {
   DBG("getNegHarmNn called, nn: " << nn << " key: " << *cur_key_);
-  return nn;
+  MidiMessage::getMidiNoteName(nn, false, true, 4);
+  
 //  return 2*tonic + 7 - nn;
+  return nn;
 }

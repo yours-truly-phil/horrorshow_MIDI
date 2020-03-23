@@ -27,7 +27,8 @@
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>
-    <VS2019 targetFolder="Builds/VisualStudio2019" IPPLibrary="true" userNotes="orig target: 10.0.18362.0&#10;beta: 10.0.19041.0&#10;default: 10.0.16299.0">
+    <VS2019 targetFolder="Builds/VisualStudio2019" IPPLibrary="true" userNotes="orig target: 10.0.18362.0 auch aktuelles (und default denke ich): 10.0.18362.0&#10;beta: 10.0.19041.0&#10;default: 10.0.16299.0"
+            windowsTargetPlatformVersion="10.0.18362.0">
       <CONFIGURATIONS>
         <CONFIGURATION isDebug="1" name="Debug" enablePluginBinaryCopyStep="1" vst3BinaryLocation="G:\OneDrive\resources\audio\VST3\JUCE"
                        targetName="ToNegativeHarmonyBinary" headerPath="C:\SDKs\asiosdk_2.3.3_2019-06-14\common;"
@@ -52,14 +53,12 @@
       </MODULEPATHS>
     </VS2019>
     <CODEBLOCKS_WINDOWS targetFolder="Builds/CodeBlocksWindows" userNotes="Extra Compiler Flags was: -Wa,-mbig-obj"
-                        extraCompilerFlags="-Wa,-mbig-obj" enableGNUExtensions="1">
+                        enableGNUExtensions="1" extraCompilerFlags="-Wa,-mbig-obj">
       <CONFIGURATIONS>
         <CONFIGURATION isDebug="1" name="Debug" windowsCodeBlocksArchitecture="-m64"
-                       headerPath="C:\SDKs\asiosdk_2.3.3_2019-06-14\common;" recommendedWarnings="GCC"
-                       userNotes="removed from header: ..\..\modules\googletest\googletest\include;"/>
-        <CONFIGURATION isDebug="0" name="Release" linkTimeOptimisation="1" optimisation="3"
-                       windowsCodeBlocksArchitecture="-m64" headerPath="C:\SDKs\asiosdk_2.3.3_2019-06-14\common;"
-                       userNotes="removed from header: ..\..\modules\googletest\googletest\include;"/>
+                       headerPath="C:\SDKs\asiosdk_2.3.3_2019-06-14\common;" userNotes="removed from header: ..\..\modules\googletest\googletest\include;"/>
+        <CONFIGURATION isDebug="0" name="Release" windowsCodeBlocksArchitecture="-m64"
+                       headerPath="C:\SDKs\asiosdk_2.3.3_2019-06-14\common;" userNotes="removed from header: ..\..\modules\googletest\googletest\include;"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_gui_extra" path="../../JUCE/modules"/>
@@ -110,7 +109,9 @@
     <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
   </MODULES>
   <LIVE_SETTINGS>
-    <WINDOWS buildEnabled="0" warningsEnabled="1" headerPath="C:\SDKs\asiosdk_2.3.3_2019-06-14\common;"/>
+    <WINDOWS buildEnabled="1" warningsEnabled="1" windowsTargetPlatformVersion="10.0.18362.0"
+             systemHeaderPath="C:\SDKs\asiosdk_2.3.3_2019-06-14\common;&#10;C:/Program Files (x86)/Windows Kits/10/Include/10.0.18362.0;&#10;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.25.28610\include;"
+             extraCompilerFlags="-std=c++17"/>
     <LINUX/>
   </LIVE_SETTINGS>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_ASIO="1" JUCE_WASAPI="1"
