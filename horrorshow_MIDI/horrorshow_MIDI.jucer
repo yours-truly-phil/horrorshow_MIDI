@@ -8,10 +8,9 @@
               pluginDesc="The Input MIDI Notes get converted into their negative Harmnony Counterparts"
               pluginName="ToNegativeHarmony" pluginManufacturer="horrorshow.io"
               pluginManufacturerCode="C137" pluginCode="HSNH" pluginVSTCategory="kPlugCategEffect"
-              pluginRTASCategory="32,64,8192" pluginVST3Category="Analyzer,Fx,Modulation"
-              projectLineFeed="&#10;" pluginAAXCategory="32,64,8192" pluginAUMainType="'aumi'"
-              cppLanguageStandard="17" pluginChannelConfigs="{0,0},{1,1},{1,2},{2,2}"
-              userNotes="Used to be target version (Win) 10.0.18362.0&#10;but I installed the current default 10.0.16299.0 because I see currently no reason to enforce the later target version&#10;beta is 10.0.19041.0&#10;&#10;removed Header Search Paths from Global Project Settings (this form)&#10;C:\SDKs\asiosdk_2.3.3_2019-06-14\common;&#10;..\..\modules\googletest\googletest\include;&#10;&#10;and added it to the individual exporteres">
+              pluginRTASCategory="8192" pluginVST3Category="Fx" projectLineFeed="&#10;"
+              pluginAAXCategory="8192" pluginAUMainType="'aumi'" cppLanguageStandard="17"
+              pluginChannelConfigs="{0,0},{1,1},{1,2},{2,2}" userNotes="Used to be target version (Win) 10.0.18362.0&#10;but I installed the current default 10.0.16299.0 because I see currently no reason to enforce the later target version&#10;beta is 10.0.19041.0&#10;&#10;removed Header Search Paths from Global Project Settings (this form)&#10;C:\SDKs\asiosdk_2.3.3_2019-06-14\common;&#10;..\..\modules\googletest\googletest\include;&#10;&#10;and added it to the individual exporteres">
   <MAINGROUP id="GNaMjk" name="ToNegativeHarmony">
     <GROUP id="{772F881A-326D-64CD-7E44-12049FCDE93E}" name="Source">
       <FILE id="ZJ6jE8" name="MidiProcessor.cpp" compile="1" resource="0"
@@ -35,7 +34,8 @@
                        userNotes="removed from header: ..\..\modules\googletest\googletest\include;"/>
         <CONFIGURATION isDebug="0" name="Release" targetName="ToNegativeHarmonyBinary"
                        vst3BinaryLocation="G:\OneDrive\resources\audio\VST3\JUCE" enablePluginBinaryCopyStep="1"
-                       headerPath="C:\SDKs\asiosdk_2.3.3_2019-06-14\common;" userNotes="removed from header: ..\..\modules\googletest\googletest\include;"/>
+                       headerPath="C:\SDKs\asiosdk_2.3.3_2019-06-14\common;" userNotes="removed from header: ..\..\modules\googletest\googletest\include;"
+                       useRuntimeLibDLL="0"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_audio_basics" path="../../JUCE/modules"/>
@@ -52,13 +52,35 @@
         <MODULEPATH id="juce_audio_formats" path="../../JUCE/modules"/>
       </MODULEPATHS>
     </VS2019>
-    <CODEBLOCKS_WINDOWS targetFolder="Builds/CodeBlocksWindows" userNotes="Extra Compiler Flags was: -Wa,-mbig-obj"
-                        enableGNUExtensions="1" extraCompilerFlags="-Wa,-mbig-obj">
+    <LINUX_MAKE targetFolder="Builds/LinuxMakefile" enableGNUExtensions="1" userNotes="-Wall,-mbig-obj">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug" headerPath="~/SDKs/asiosdk_2.3.3_2019-06-14/common;"
+                       linuxArchitecture="-m64"/>
+        <CONFIGURATION isDebug="0" name="Release" headerPath="~/SDKs/asiosdk_2.3.3_2019-06-14/common;"
+                       linuxArchitecture="-m64"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_gui_extra"/>
+        <MODULEPATH id="juce_gui_basics"/>
+        <MODULEPATH id="juce_graphics"/>
+        <MODULEPATH id="juce_events"/>
+        <MODULEPATH id="juce_data_structures"/>
+        <MODULEPATH id="juce_core"/>
+        <MODULEPATH id="juce_audio_utils"/>
+        <MODULEPATH id="juce_audio_processors"/>
+        <MODULEPATH id="juce_audio_plugin_client"/>
+        <MODULEPATH id="juce_audio_formats"/>
+        <MODULEPATH id="juce_audio_devices"/>
+        <MODULEPATH id="juce_audio_basics"/>
+      </MODULEPATHS>
+    </LINUX_MAKE>
+    <CODEBLOCKS_WINDOWS targetFolder="Builds/CodeBlocksWindows" userNotes="Extra Compiler Flags was: -Wa,-mbig-obj&#10;-Wa,-mbig-obj">
       <CONFIGURATIONS>
         <CONFIGURATION isDebug="1" name="Debug" windowsCodeBlocksArchitecture="-m64"
                        headerPath="C:\SDKs\asiosdk_2.3.3_2019-06-14\common;" userNotes="removed from header: ..\..\modules\googletest\googletest\include;"/>
         <CONFIGURATION isDebug="0" name="Release" windowsCodeBlocksArchitecture="-m64"
-                       headerPath="C:\SDKs\asiosdk_2.3.3_2019-06-14\common;" userNotes="removed from header: ..\..\modules\googletest\googletest\include;"/>
+                       headerPath="C:\SDKs\asiosdk_2.3.3_2019-06-14\common;" userNotes="removed from header: ..\..\modules\googletest\googletest\include;"
+                       optimisation="6" linkTimeOptimisation="1"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_gui_extra" path="../../JUCE/modules"/>
@@ -109,7 +131,7 @@
     <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
   </MODULES>
   <LIVE_SETTINGS>
-    <WINDOWS buildEnabled="1" warningsEnabled="1" windowsTargetPlatformVersion="10.0.18362.0"
+    <WINDOWS buildEnabled="0" warningsEnabled="1" windowsTargetPlatformVersion="10.0.18362.0"
              systemHeaderPath="C:\SDKs\asiosdk_2.3.3_2019-06-14\common;&#10;C:/Program Files (x86)/Windows Kits/10/Include/10.0.18362.0;&#10;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.25.28610\include;"
              extraCompilerFlags="-std=c++17"/>
     <LINUX/>
